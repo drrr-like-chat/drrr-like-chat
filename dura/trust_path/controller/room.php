@@ -17,7 +17,7 @@ class Dura_Controller_Room extends Dura_Abstract_Controller
 	protected $chat = null;
 	protected $isAjax = null;
 	protected $roomHandler = null;
-	protected $roomModel   = null;
+	protected $roomModels  = null;
 
 	public function __construct()
 	{
@@ -86,12 +86,30 @@ class Dura_Controller_Room extends Dura_Abstract_Controller
 			Dura::trans(t("Room is full.", 'lounge'));
 		}
 
+		// check online
+		foreach ( $this->roomModel->users as $user )
+		{
+			if ( $user->update < time() - DURA_CHAT_ROOM_EXPIRE )
+			{
+				$userName = (string) $user->name;
+				$talk = $this->roomModel->addChild('talks');
+				$talk->addChild('id', md5(microtime().mt_rand()));
+				$talk->addChild('uid', 0);
+				$talk->addChild('name', 'NPC');
+				$talk->addChild('message', t("{1} lost the connection.", $userName));
+				$talk->addChild('icon', '');
+				$talk->addChild('time', time());
+				unset($user[0]);
+			}
+		}
+
 		$userName = Dura::user()->getName();
 		$userId   = Dura::user()->getId();
 
 		$users = $this->roomModel->addChild('users');
 		$users->addChild('name', $userName);
 		$users->addChild('id', $userId);
+		$users->addChild('update', time());
 
 		$talk = $this->roomModel->addChild('talks');
 		$talk->addChild('id', md5(microtime().mt_rand()));
@@ -170,6 +188,15 @@ class Dura_Controller_Room extends Dura_Abstract_Controller
 		$talk->addChild('icon', Dura::user()->getIcon());
 		$talk->addChild('time', time());
 
+		$id = Dura::user()->getId();
+
+		foreach ( $this->roomModel->users as $user )
+		{
+			if ( $id == (string) $user->id )
+			{
+				$user->update = time();
+			}
+		}
 
 		while ( count($this->roomModel->talks) > DURA_LOG_LIMIT )
 		{
@@ -177,6 +204,8 @@ class Dura_Controller_Room extends Dura_Abstract_Controller
 		}
 
 		$this->roomHandler->save($this->id, $this->roomModel);
+
+		if ( Dura::get('ajax') ) die; // TODO
 
 		Dura::redirect('room');
 	}

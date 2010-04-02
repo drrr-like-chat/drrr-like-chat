@@ -3,6 +3,10 @@
 <li class="name"><?php echo $dura['profile']['name'] ?></li>
 <li class="logout">
 <form action="<?php echo Dura::url('logout') ?>" method="post">
+
+<?php if ( Dura::user()->isAdmin() ) : ?>
+<a href="<?php e(Dura::url('admin_announce')) ?>"><?php e(t("Announce")) ?></a>
+<?php endif ?>
 <input type="submit" class="input" value="<?php e(t("LOGOUT")) ?>" />
 </form>
 </li>
@@ -13,6 +17,11 @@
 
 <div class="header">
 <h2><?php e(t("Lounge")) ?></h2>
+
+<div class="right"><?php e(t("{1} users online!", $dura['active_user'])) ?></div>
+
+<div class="clear"></div>
+
 
 <div id="create_room">
 <form action="<?php echo $dura['create_room_url'] ?>" method="post">

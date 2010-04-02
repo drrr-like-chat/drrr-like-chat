@@ -11,17 +11,13 @@
  *
  */
 
-class Dura_Controller_Default extends Dura_Abstract_Controller
+class Dura_Controller_Admin extends Dura_Abstract_Controller
 {
 	protected $error = null;
-	protected $icons = array();
 
 	public function __construct()
 	{
 		parent::__construct();
-		$this->icons = Dura_Class_Icon::getIcons();
-
-		unset($this->icons['admin']);
 	}
 
 	public function main()
@@ -49,18 +45,13 @@ class Dura_Controller_Default extends Dura_Abstract_Controller
 	protected function _login()
 	{
 		$name = Dura::post('name');
-		$icon = Dura::post('icon');
+		$pass = Dura::post('pass');
 		$name = trim($name);
-		$icon = trim($icon);
+		$pass = trim($pass);
 
 		if ( $name === '' )
 		{
 			throw new Exception(t("Please input name."));
-		}
-
-		if ( mb_strlen($name) > 10 )
-		{
-			throw new Exception(t("Name should be less than 10 letters."));
 		}
 
 		$token = Dura::post('token');
@@ -70,14 +61,13 @@ class Dura_Controller_Default extends Dura_Abstract_Controller
 			throw new Exception(t("Login error happened."));
 		}
 
-		if ( !isset($this->icons[$icon]) )
+		if ( $name !== DURA_ADMIN_NAME or $pass !== DURA_ADMIN_PASS )
 		{
-			$icons = array_keys($this->icons);
-			$icon = reset($icons);
+			throw new Exception(t("ID or password is wrong."));
 		}
 
 		$user =& Dura_Class_User::getInstance();
-		$user->login($name, $icon);
+		$user->login($name, 'admin', true);
 
 		Dura_Class_Ticket::destory();
 
@@ -86,7 +76,6 @@ class Dura_Controller_Default extends Dura_Abstract_Controller
 
 	protected function _default()
 	{
-		$this->output['icons'] = $this->icons;
 		$this->output['error'] = $this->error;
 		$this->output['token'] = Dura_Class_Ticket::issue();
 		$this->_view();

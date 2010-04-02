@@ -157,6 +157,7 @@ class Dura_Controller_CreateRoom extends Dura_Abstract_Controller
 		$users = $roomModel->addChild('users');
 		$users->addChild('name', $userName);
 		$users->addChild('id', $userId);
+		$users->addChild('update', time());
 
 		$talk = $roomModel->addChild('talks');
 		$talk->addChild('id', md5(microtime().mt_rand()));

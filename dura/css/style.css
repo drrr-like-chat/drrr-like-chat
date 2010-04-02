@@ -144,7 +144,7 @@ div.header {
 		}
 		
 		#talks dl.setton dd div.bubble p.body {
-			background: transparent url('setton.png') repeat-x left center;
+			background: transparent url('gray.png') repeat-x left center;
 		}
 		
 		#talks dl.tanaka dt {
@@ -152,7 +152,7 @@ div.header {
 		}
 		
 		#talks dl.tanaka dd div.bubble p.body {
-			background: transparent url('tanaka.png') repeat-x left center;
+			background: transparent url('blue.png') repeat-x left center;
 		}
 		
 		#talks dl.kanra dt {
@@ -160,7 +160,7 @@ div.header {
 		}
 		
 		#talks dl.kanra dd div.bubble p.body {
-			background: transparent url('kanra.png') repeat-x left center;
+			background: transparent url('orange.png') repeat-x left center;
 		}
 		
 		#talks dl.zaika dt {
@@ -168,7 +168,15 @@ div.header {
 		}
 		
 		#talks dl.zaika dd div.bubble p.body {
-			background: transparent url('zaika.png') repeat-x left center;
+			background: transparent url('red.png') repeat-x left center;
+		}
+		
+		#talks dl.admin dt {
+			background: transparent url('icon_admin.gif') no-repeat center top;
+		}
+		
+		#talks dl.admin dd div.bubble p.body {
+			background: transparent url('orange.png') repeat-x left center;
 		}
 
 #login {

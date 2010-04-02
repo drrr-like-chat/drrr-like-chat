@@ -32,6 +32,8 @@
 <?php require DURA_TEMPLATE_PATH.'/footer.html' ?>
 </div>
 <?php endif ?>
-<div class="copyright">Durarara-like-chat Copyright (c) 2010 <a href="http://suin.asia/">Suin</a></div>
+<div class="copyright">
+<a href="<?php e(Dura::url('admin')) ?>"><?php e("Admin") ?></a> |
+Durarara-like-chat Copyright (c) 2010 <a href="http://suin.asia/">Suin</a></div>
 
 </div>

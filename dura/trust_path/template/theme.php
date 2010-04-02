@@ -10,6 +10,7 @@ google.load("language", "1");
 google.load("jquery", "1");
 google.load("jqueryui", "1");
 duraUrl = "<?php e(DURA_URL) ?>";
+useComet = <?php e(DURA_USE_COMET) ?>;
 //-->
 </script>
 <script type="text/javascript" src="<?php e(DURA_URL) ?>/js/translator.js"></script>

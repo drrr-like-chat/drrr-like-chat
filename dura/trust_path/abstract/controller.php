@@ -59,6 +59,14 @@ abstract class Dura_Abstract_Controller
 		}
 	}
 
+	protected function _validateAdmin()
+	{
+		if ( !Dura::user()->isAdmin() )
+		{
+			Dura::redirect();
+		}
+	}
+
 	protected function _escapeHtml(&$vars)
 	{
 		foreach ( $vars as $key => &$var )

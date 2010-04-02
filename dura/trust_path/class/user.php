@@ -17,6 +17,7 @@ class Dura_Class_User
 	protected $icon = null;
 	protected $id   = null;
 	protected $expire = null;
+	protected $admin = false;
 
 	protected function __construct()
 	{
@@ -34,11 +35,12 @@ class Dura_Class_User
 		return $instance;
 	}
 
-	public function login($name, $icon = null)
+	public function login($name, $icon, $admin = false)
 	{
 		$this->name = $name;
 		$this->icon = $icon;
 		$this->id = md5($name.getenv('REMOTE_ADDR'));
+		$this->admin = $admin;
 
 		$_SESSION['user'] = $this;
 	}
@@ -52,12 +54,24 @@ class Dura_Class_User
 			$this->icon   = $user->icon;
 			$this->id     = $user->id;
 			$this->expire = $user->expire;
+			$this->id     = $user->id;
+			$this->admin  = $user->admin;
 		}
 	}
 
 	public function isUser()
 	{
 		return ( $this->id !== null );
+	}
+
+	public function isAdmin()
+	{
+		if ( $this->isUser() )
+		{
+			return $this->admin;
+		}
+
+		return false;
 	}
 
 	public function getName()

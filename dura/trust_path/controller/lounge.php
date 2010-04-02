@@ -54,6 +54,7 @@ class Dura_Controller_Lounge extends Dura_Abstract_Controller
 		$rooms = array();
 
 		$roomExpire = time() - DURA_CHAT_ROOM_EXPIRE;
+		$activeUser = 0;
 
 		foreach ( $roomModels as $id => $roomModel )
 		{
@@ -69,11 +70,14 @@ class Dura_Controller_Lounge extends Dura_Abstract_Controller
 			$room['total'] = count($room['users']);
 			$room['url'] = Dura::url('room');
 			$rooms[] = $room;
+
+			$activeUser += $room['total'];
 		}
 
 		unset($roomHandler, $roomModels, $roomModel, $room);
 
 		$this->output['rooms'] = $rooms;
+		$this->output['active_user'] = $activeUser;
 	}
 
 	protected function _profile()

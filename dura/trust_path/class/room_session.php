@@ -30,8 +30,7 @@ class Dura_Class_RoomSession
 
 	public static function create($id)
 	{
-		$_SESSION['room']['next_update'] = time() + DURA_TIMEOUT;
-		$_SESSION['room']['id']          = $id;
+		$_SESSION['room']['id'] = $id;
 	}
 
 	public static function delete()

@@ -24,7 +24,7 @@ jQuery(function($)
 
 	var construct = function()
 	{
-		postAction = location.href;
+		postAction = location.href+"?ajax=1";
 		getAction  = duraUrl+'/ajax.php';
 
 		formElement     = $("#message");
@@ -40,8 +40,16 @@ jQuery(function($)
 		userIcon = trim($("#user_icon").text());
 
 		appendEvents();
-		getMessages();
 		separateMemberList();
+
+		if ( useComet )
+		{
+			getMessages();
+		}
+		else
+		{
+			var timer = setInterval(function(){getMessagesOnce();}, 1500);
+		}
 	}
 
 	var appendEvents = function()
@@ -126,6 +134,19 @@ jQuery(function($)
 
 		return false;
 	}
+
+	var getMessagesOnce = function()
+	{
+		$.post(getAction+'?fast=1', {}, 
+			function(data)
+			{
+				validateResult(data);
+				writeMessages(data);
+				writeUserList(data);
+			}
+		, 'xml');
+	}
+
 
 	var getMessages = function()
 	{
@@ -366,7 +387,15 @@ jQuery(function($)
 		var name = $(this).text();
 		var text = textareaElement.val();
 		textareaElement.focus();
-		textareaElement.val(text+' @'+name+' ');
+
+		if ( text.length > 0 )
+		{
+			textareaElement.val(text+' @'+name);
+		}
+		else
+		{
+			textareaElement.val(text+'@'+name+' ');
+		}
 	}
 
 	var trim = function(string)

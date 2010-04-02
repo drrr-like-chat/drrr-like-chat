@@ -15,6 +15,7 @@ jQuery(function($)
 	var isUseSound   = true;
 	var lastMessage  = '';
 	var isLoggedOut  = false;
+	var isLoading    = false;
 
 	var userId   = null;
 	var userName = null;
@@ -137,9 +138,17 @@ jQuery(function($)
 
 	var getMessagesOnce = function()
 	{
+		if ( isLoading )
+		{
+			return;
+		}
+
+		isLoading = true;
+
 		$.post(getAction+'?fast=1', {}, 
 			function(data)
 			{
+				isLoading = false;
 				validateResult(data);
 				writeMessages(data);
 				writeUserList(data);

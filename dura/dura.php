@@ -27,7 +27,7 @@ class Dura
 	{
 		if ( defined('DURA_LOADED') ) return;
 
-		define('DURA_VERSION', '1.0.2');
+		define('DURA_VERSION', '1.0.3');
 
 		spl_autoload_register(array(__CLASS__, 'autoload'));
 

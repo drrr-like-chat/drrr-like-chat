@@ -25,7 +25,15 @@ jQuery(function($)
 
 	var construct = function()
 	{
-		postAction = location.href+"?ajax=1";
+		if ( location.href.replace(/Å_?/, '') == location.href )
+		{
+			postAction = location.href+"&ajax=1";
+		}
+		else
+		{
+			postAction = location.href+"?ajax=1";
+		}
+
 		getAction  = duraUrl+'/ajax.php';
 
 		formElement     = $("#message");

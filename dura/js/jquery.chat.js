@@ -25,13 +25,15 @@ jQuery(function($)
 
 	var construct = function()
 	{
-		if ( location.href.replace(/Å_?/, '') == location.href )
+		var url = location.href.replace(/#/, '');
+
+		if ( url.replace(/\?/, '') != url )
 		{
-			postAction = location.href+"&ajax=1";
+			postAction = url+"&ajax=1";
 		}
 		else
 		{
-			postAction = location.href+"?ajax=1";
+			postAction = url+"?ajax=1";
 		}
 
 		getAction  = duraUrl+'/ajax.php';

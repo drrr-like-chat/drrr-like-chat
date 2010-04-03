@@ -52,6 +52,7 @@ jQuery(function($)
 
 		appendEvents();
 		separateMemberList();
+		roundBaloons();
 
 		if ( useComet )
 		{
@@ -320,7 +321,7 @@ jQuery(function($)
 			'height': oldHeight,
 			'opacity': 1,
 			'textIndent': 0
-		}, 200, "easeInQuart");
+		}, 200, "easeInQuart", roundBaloon);
 	}
 
 	var ringSound = function()
@@ -421,6 +422,34 @@ jQuery(function($)
 	{
 		string = string.replace(/^\s+|\s+$/g, '');
 		return string;
+	}
+
+	var roundBaloons = function()
+	{
+		$("#talks dl.talk dd div.bubble p.body").each(roundBaloon);
+	}
+
+	var roundBaloon = function()
+	{
+		var isMSIE = /*@cc_on!@*/false;
+
+		if ( !isMSIE )
+		{
+			return;
+		}
+
+		var width = $(this).width();
+		var borderWidth = $(this).css('border-width');
+		var padding = $(this).css('padding-left');
+		var color = $(this).css('border-color');
+		width = width + padding.replace(/px/, '') * 2;
+
+		$(this).corner("round 10px cc:"+color)
+		.parent().css({
+				"background" : color,
+				"padding" : borderWidth,
+				"width" : width
+			}).corner("round 13px");
 	}
 
 	var dump = function($val)

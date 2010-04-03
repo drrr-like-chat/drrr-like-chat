@@ -213,8 +213,24 @@ div.message_box_inner {
 				background: transparent url('icon_zaika.gif') no-repeat center top;
 			}
 			
+			#talks dl.zawa dd div.bubble p.body {
+				background: transparent url('green.png') repeat-x left center;
+			}
+			
+			#talks dl.zawa dt {
+				background: transparent url('icon_zawa.gif') no-repeat center top;
+			}
+			
 			#talks dl.zaika dd div.bubble p.body {
 				background: transparent url('red.png') repeat-x left center;
+			}
+			
+			#talks dl.gg dt {
+				background: transparent url('icon_gg.gif') no-repeat center top;
+			}
+			
+			#talks dl.gg dd div.bubble p.body {
+				background: transparent url('pink.png') repeat-x left center;
 			}
 			
 			#talks dl.admin dt {

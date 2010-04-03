@@ -76,6 +76,29 @@ div.header {
 		    padding: 6px 0 4px 18px; /* push text down 1px */
 		}
 
+div.message_box {
+	position: fixed;
+	width: 100%;
+	left: 0;
+	background: #efefef;
+	padding: 5px 0 10px 0;
+	color: #0a0a0a;
+	z-index: 99999;
+}
+
+	div.message_box h2 {
+		text-align: center;
+		font-size: 13px;
+		float: left;
+	}
+
+div.message_box_inner {
+	position: relative;
+	width: 580px;
+	left: 50%;
+	margin-left: -290px;
+}
+
 #message {
 	text-align: center;
 }
@@ -93,91 +116,94 @@ div.header {
 	#message div.submit {
 		margin: 0 0;
 		height: 24px;
-		margin-top: 15px;
 	}
 
-#talks div.system {
-	margin: 10px 0 10px 20px;
-	letter-spacing: 3px;
-	clear: left;
+#talks {
+	margin-top: 160px;
 }
 
-#talks dl.talk {
-	margin: 20px 0;
-	clear: both;
-	min-height: 80px;
-}
-
-	#talks dl.talk dt {
-		height: 20px;
-		width: 90px;
-		padding-top: 58px;
-		padding-bottom: 10px;
-		text-align: center;
-		display: block;
-		line-height: 20px;
-		float: left;
+	#talks div.system {
+		margin: 10px 0 10px 20px;
+		letter-spacing: 3px;
+		clear: left;
 	}
-
-	#talks dl.talk dd {
-		display: inline-block;
-		max-width: 510px;
+	
+	#talks dl.talk {
+		clear: both;
+		min-height: 80px;
+		margin-top: 10px;
 	}
-
-		#talks dl.talk dd div.bubble p.body {
+	
+		#talks dl.talk dt {
+			min-height: 20px;
+			width: 90px;
+			padding-top: 58px;
+			padding-bottom: 10px;
+			text-align: center;
+			display: block;
+			line-height: 20px;
 			float: left;
-			clear: left;
-			padding: 15px 20px;
-			border-radius: 13px;
-			border: 4px #fff solid;
-			-moz-border-radius: 13px;
-			-webkit-border-radius: 13px;
-			background: #000;
-			font: 1em "Meiryo", sans-serif;
-			letter-spacing: 3px;
-			color: white;
-			-position: relative;
 		}
-		
-		#talks dl.setton dt {
-			background: transparent url('icon_setton.gif') no-repeat center top;
+	
+		#talks dl.talk dd {
+			display: inline-block;
+			max-width: 510px;
 		}
-		
-		#talks dl.setton dd div.bubble p.body {
-			background: transparent url('gray.png') repeat-x left center;
-		}
-		
-		#talks dl.tanaka dt {
-			background: transparent url('icon_tanaka.gif') no-repeat center top;
-		}
-		
-		#talks dl.tanaka dd div.bubble p.body {
-			background: transparent url('blue.png') repeat-x left center;
-		}
-		
-		#talks dl.kanra dt {
-			background: transparent url('icon_kanra.gif') no-repeat center top;
-		}
-		
-		#talks dl.kanra dd div.bubble p.body {
-			background: transparent url('orange.png') repeat-x left center;
-		}
-		
-		#talks dl.zaika dt {
-			background: transparent url('icon_zaika.gif') no-repeat center top;
-		}
-		
-		#talks dl.zaika dd div.bubble p.body {
-			background: transparent url('red.png') repeat-x left center;
-		}
-		
-		#talks dl.admin dt {
-			background: transparent url('icon_admin.gif') no-repeat center top;
-		}
-		
-		#talks dl.admin dd div.bubble p.body {
-			background: transparent url('orange.png') repeat-x left center;
-		}
+	
+			#talks dl.talk dd div.bubble p.body {
+				float: left;
+				clear: left;
+				padding: 15px 20px;
+				border-radius: 13px;
+				border: 4px #fff solid;
+				-moz-border-radius: 13px;
+				-webkit-border-radius: 13px;
+				background: #000;
+				font: 1em "Meiryo", sans-serif;
+				letter-spacing: 3px;
+				color: white;
+				-position: relative;
+			}
+			
+			#talks dl.setton dt {
+				background: transparent url('icon_setton.gif') no-repeat center top;
+			}
+			
+			#talks dl.setton dd div.bubble p.body {
+				background: transparent url('gray.png') repeat-x left center;
+			}
+			
+			#talks dl.tanaka dt {
+				background: transparent url('icon_tanaka.gif') no-repeat center top;
+			}
+			
+			#talks dl.tanaka dd div.bubble p.body {
+				background: transparent url('blue.png') repeat-x left center;
+			}
+			
+			#talks dl.kanra dt {
+				background: transparent url('icon_kanra.gif') no-repeat center top;
+			}
+			
+			#talks dl.kanra dd div.bubble p.body {
+				background: transparent url('orange.png') repeat-x left center;
+			}
+			
+			#talks dl.zaika dt {
+				background: transparent url('icon_zaika.gif') no-repeat center top;
+			}
+			
+			#talks dl.zaika dd div.bubble p.body {
+				background: transparent url('red.png') repeat-x left center;
+			}
+			
+			#talks dl.admin dt {
+				background: transparent url('icon_admin.gif') no-repeat center top;
+			}
+			
+			#talks dl.admin dd div.bubble p.body {
+				background: transparent url('orange.png') repeat-x left center;
+			}
 
 #login {
 	min-height: 100px;

@@ -50,6 +50,13 @@ jQuery(function($)
 		userName = trim($("#user_name").text());
 		userIcon = trim($("#user_icon").text());
 
+		messageMaxLength = 140;
+
+		if ( typeof(GlobalMessageMaxLength) != 'undefined' )
+		{
+			messageMaxLength = GlobalMessageMaxLength;
+		}
+
 		appendEvents();
 		separateMemberList();
 		roundBaloons();
@@ -134,6 +141,12 @@ jQuery(function($)
 		buttonElement.val(t("Sending..."));
 
 		lastMessage  = message;
+
+		if ( message.length - 1 > messageMaxLength )
+		{
+			message = message.substring(0, messageMaxLength)+"...";
+		}
+
 		writeSelfMessage(message);
 
 		$.post(postAction, data,

@@ -1,16 +1,17 @@
-<div class="header">
-<h2><?php e($dura['room']['name']) ?></h2>
+<div class="message_box">
+<div class="message_box_inner">
 <form action="#" method="post" id="message">
 <div class="right">
 <input type="submit" name="logout" value="LOGOUT" />
 </div>
+<h2><?php e($dura['room']['name']) ?></h2>
 <textarea name="message"></textarea>
-<div class="submit">
-<span class="button"><input type="submit" name="post" value="POST!" /></span>
-</div>
 <?php if ( $ret = file_exists(DURA_PATH.'/js/sound.mp3') ) : ?>
 <a href="<?php echo DURA_URL ?>/js/sound.mp3" id="sound" class="hide">sound</a>
 <?php endif ?>
+<div class="submit">
+<span class="button"><input type="submit" name="post" value="POST!" /></span>
+</div>
 <ul id="members" class="hide">
 <?php foreach ( $dura['room']['users'] as $user  ) : ?>
 <li><?php e($user['name']) ?></li>
@@ -21,8 +22,9 @@
 <li id="user_name"><?php e($dura['user']['name']) ?></li>
 <li id="user_icon"><?php e($dura['user']['icon']) ?></li>
 </ul>
-</form>
 
+</form>
+</div>
 </div><!-- end #header -->
 
 <div id="talks">

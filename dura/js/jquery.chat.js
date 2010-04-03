@@ -16,6 +16,7 @@ jQuery(function($)
 	var lastMessage  = '';
 	var isLoggedOut  = false;
 	var isLoading    = false;
+	var isUseAnime   = true;
 
 	var userId   = null;
 	var userName = null;
@@ -69,6 +70,8 @@ jQuery(function($)
 		{
 			var timer = setInterval(function(){getMessagesOnce();}, 1500);
 		}
+
+		$.each($(".bubble"), addTail);
 	}
 
 	var appendEvents = function()
@@ -311,13 +314,36 @@ jQuery(function($)
 
 	var effectBaloon = function()
 	{
+		if ( !isUseAnime ) return;
+
 		var thisBobble = $(".bubble .body:first");
+		var thisBobblePrent = thisBobble.parent();
 		var oldWidth  = thisBobble.width()+'px';
 		var oldHeight = thisBobble.height()+'px';
+		var newWidth  = ( 5 + thisBobble.width() ) +'px';
+		var newHeight = ( 5 + thisBobble.height() ) +'px';
 
 		ringSound();
 
 		$("dl.talk:first dt").click(addUserNameToTextarea);
+
+		var isMSIE = /*@cc_on!@*/false;
+
+		if ( !isMSIE )
+		{
+			$.each(thisBobblePrent, addTail);
+
+			thisBobblePrent.css({
+				'opacity' : '0',
+				'width': '0px',
+				'height': '0px'
+			});
+			thisBobblePrent.animate({
+				'opacity' : 1,
+				'width': '22px',
+				'height': '16px'
+			}, 200, "easeInQuart");
+		}
 
 		thisBobble.css({
 			'border-width' : '0px',
@@ -327,14 +353,34 @@ jQuery(function($)
 			'width': '0px',
 			'height': '0px'
 		});
+
 		thisBobble.animate({ 
 			'fontSize': "1em", 
 			'borderWidth': "4px",
-			'width': oldWidth,
-			'height': oldHeight,
+			'width': newWidth,
+			'height': newHeight,
 			'opacity': 1,
 			'textIndent': 0
-		}, 200, "easeInQuart", roundBaloon);
+		}, 200, "easeInQuart", 
+			function()
+			{
+				$.each(thisBobble, roundBaloon);
+
+				var isMSIE = /*@cc_on!@*/false;
+
+				if ( isMSIE )
+				{
+					thisBobblePrent.animate({
+						'width': thisBobblePrent.width() - 5 +"px"
+					}, 100);
+				}
+
+				thisBobble.animate({
+					'width': oldWidth,
+					'height': oldHeight
+				}, 100);
+			}
+		);
 	}
 
 	var ringSound = function()
@@ -446,7 +492,8 @@ jQuery(function($)
 	{
 		var isMSIE = /*@cc_on!@*/false;
 
-		if ( !isMSIE )
+		// IE 7 only... orz
+		if ( !isMSIE || !window.XMLHttpRequest || document.querySelectorAll )
 		{
 			return;
 		}
@@ -463,6 +510,49 @@ jQuery(function($)
 				"padding" : borderWidth,
 				"width" : width
 			}).corner("round 13px");
+	}
+
+	var addTail = function()
+	{
+		var isMSIE = /*@cc_on!@*/false;
+
+		if ( isMSIE )
+		{
+			return;
+		}
+
+		var height = $(this).find(".body").height() + 30 + 8;
+		var top = (Math.round((180 - height) / 2) + 23) * -1;
+		var bgimg  = $(this).find(".body").css("background-image");
+		var rand = Math.floor(Math.random()*2);
+		var tailTop = "0px";
+
+		if ( rand == 1 )
+		{
+			tailTop = "-17px";
+		}
+
+		top = top + 1;
+
+		$(this).find(".body").css({"margin": "0 0 0 15px"});
+
+		$(this).prepend('<div><div></div></div>')
+		            .css({"margin":"-16px 0 0 0"});
+		$(this).children("div").css({
+			"position":"relative",
+			"float":"left",
+			"margin":"0 0 0 0",
+			"top": "39px",
+			"left": "-3px",
+			"width":"22px",
+			"height":"16px",
+			"background":"transparent "+bgimg+" left "+top+"px repeat-x"
+		});
+		$(this).children("div").children("div").css({
+			"width":"100%",
+			"height":"100%",
+			"background":"transparent url('"+duraUrl+"/css/tail.png') left "+tailTop+" no-repeat"
+		});
 	}
 
 	var dump = function($val)

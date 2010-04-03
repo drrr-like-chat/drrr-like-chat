@@ -81,7 +81,7 @@ div.message_box {
 	width: 100%;
 	left: 0;
 	background: #efefef;
-	padding: 5px 0 10px 0;
+	padding: 5px 0 0 0;
 	color: #0a0a0a;
 	z-index: 99999;
 }
@@ -104,22 +104,42 @@ div.message_box_inner {
 }
 
 	#message textarea {
-		width: 560px;
+		clear:both;
+		display:block;
+		width: 470px;
 		height: 3em;
 		font-size: 16px;
 		letter-spacing: 1px;
 		padding: 10px;
-		border: 1px solid #cccccc;
-		margin: 0 0;
+		border: 2px solid #cccccc;
+		margin: 0 0 0 90px;
+		*margin-left: 55px;
+		border: 1px #5b5b5b solid;
+		border-radius: 10px;
+		-moz-border-radius: 10px;
+		-webkit-border-radius: 10px;
+		overflow-y: hidden;
 	}
 
-	#message div.submit {
-		margin: 0 0;
-		height: 24px;
+	#message div.submit input {
+		display:block;
+		margin: 5px 180px;
+		height: 25px;
+		width: 200px;
+		font-size: 12px;
+		font-family: "Meiryo";
+		color: #201e1a;
+		font-weight: bold;
+	    background: transparent url('submit.gif') 0px 0px no-repeat;
+	}
+
+	#message div.submit input:active {
+	    background: transparent url('submit.gif') 0px 1px no-repeat;
 	}
 
 #talks {
-	margin-top: 160px;
+	margin-top: 150px;
+	_margin-top: 15px;
 }
 
 	#talks div.system {
@@ -149,7 +169,7 @@ div.message_box_inner {
 			display: inline-block;
 			max-width: 510px;
 		}
-	
+
 			#talks dl.talk dd div.bubble p.body {
 				float: left;
 				clear: left;

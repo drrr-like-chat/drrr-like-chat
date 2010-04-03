@@ -5,12 +5,14 @@
 <input type="submit" name="logout" value="LOGOUT" />
 </div>
 <h2><?php e($dura['room']['name']) ?></h2>
+<div>
 <textarea name="message"></textarea>
+</div>
 <?php if ( $ret = file_exists(DURA_PATH.'/js/sound.mp3') ) : ?>
 <a href="<?php echo DURA_URL ?>/js/sound.mp3" id="sound" class="hide">sound</a>
 <?php endif ?>
 <div class="submit">
-<span class="button"><input type="submit" name="post" value="POST!" /></span>
+<input type="submit" name="post" value="POST!" />
 </div>
 <ul id="members" class="hide">
 <?php foreach ( $dura['room']['users'] as $user  ) : ?>

@@ -8,7 +8,7 @@
 */ ?>
 <textarea name="message"></textarea>
 <div class="submit">
-<span class="button"><input type="submit" name="post" value="POST!" /></span>
+<input type="submit" name="post" value="POST!" />
 </div>
 </form>
 </div>

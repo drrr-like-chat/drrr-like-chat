@@ -10,13 +10,16 @@ jQuery(function($)
 	var logoutElement   = null;
 	var buttonElement   = null;
 	var iconElement     = null;
+	var menuElement     = null;
 
-	var isSubmitting = false;
-	var isUseSound   = true;
 	var lastMessage  = '';
+	var isSubmitting = false;
 	var isLoggedOut  = false;
 	var isLoading    = false;
+
 	var isUseAnime   = true;
+	var isUseSound   = true;
+	var isShowMember = false;
 
 	var userId   = null;
 	var userName = null;
@@ -46,6 +49,7 @@ jQuery(function($)
 		logoutElement   = $("input[name=logout]");
 		buttonElement   = $("input[name=post]");
 		iconElement     = $("dl.talk dt");
+		menuElement     = $("ul.menu");
 
 		userId   = trim($("#user_id").text());
 		userName = trim($("#user_name").text());
@@ -61,6 +65,7 @@ jQuery(function($)
 		appendEvents();
 		separateMemberList();
 		roundBaloons();
+		showControllPanel();
 
 		if ( useComet )
 		{
@@ -80,6 +85,9 @@ jQuery(function($)
 		textareaElement.keyup(enterToSubmit);
 		logoutElement.click(logout);
 		iconElement.click(addUserNameToTextarea);
+		menuElement.find("li.sound").click(toggleSound);
+		menuElement.find("li.member").click(toggleMember);
+		menuElement.find("li.animation").click(toggleAnimation);
 	}
 
 	var submitMessage = function()
@@ -89,6 +97,11 @@ jQuery(function($)
 
 		if ( message.replace(/^[ \n]+$/, '') == '' )
 		{
+			if ( message.replace(/^\n+$/, '') == '' )
+			{
+				textareaElement.val('');
+			}
+
 			return false;
 		}
 
@@ -98,37 +111,6 @@ jQuery(function($)
 		}
 
 		var data = formElement.serialize();
-
-		if ( message.match(/^\/sound/) )
-		{
-			if ( isUseSound == true )
-			{
-				isUseSound = false;
-			}
-			else
-			{
-				isUseSound = true;
-			}
-
-			ringSound();
-			textareaElement.val('');
-			return false;
-		}
-
-		if ( message.match(/^\/member/) )
-		{
-			if ( membersElement.is(":hidden") )
-			{
-				membersElement.slideDown("slow");
-				textareaElement.val('');
-				return false;
-			}
-		}
-
-		if ( membersElement.is(":not(:hidden)") )
-		{
-			membersElement.slideUp("slow");
-		}
 
 		if ( message == lastMessage )
 		{
@@ -165,7 +147,7 @@ jQuery(function($)
 
 	var getMessagesOnce = function()
 	{
-		if ( isLoading )
+		if ( isLoading || isLoggedOut )
 		{
 			return;
 		}
@@ -314,8 +296,6 @@ jQuery(function($)
 
 	var effectBaloon = function()
 	{
-		if ( !isUseAnime ) return;
-
 		var thisBobble = $(".bubble .body:first");
 		var thisBobblePrent = thisBobble.parent();
 		var oldWidth  = thisBobble.width()+'px';
@@ -325,11 +305,16 @@ jQuery(function($)
 
 		ringSound();
 
+		if ( !isUseAnime )
+		{
+			$.each(thisBobblePrent, addTail);
+			$.each(thisBobble, roundBaloon);
+			return;
+		}
+
 		$("dl.talk:first dt").click(addUserNameToTextarea);
 
-		var isMSIE = /*@cc_on!@*/false;
-
-		if ( !isMSIE )
+		if ( !isIE() )
 		{
 			$.each(thisBobblePrent, addTail);
 
@@ -366,9 +351,7 @@ jQuery(function($)
 			{
 				$.each(thisBobble, roundBaloon);
 
-				var isMSIE = /*@cc_on!@*/false;
-
-				if ( isMSIE )
+				if ( isIE() )
 				{
 					thisBobblePrent.animate({
 						'width': thisBobblePrent.width() - 5 +"px"
@@ -431,10 +414,11 @@ jQuery(function($)
 
 	var logout = function()
 	{
+		isLoggedOut = true;
+
 		$.post(postAction, {'logout':'logout'},
 			function(result)
 			{
-				isLoggedOut = true;
 				location.href = duraUrl;
 			}
 		);
@@ -490,10 +474,8 @@ jQuery(function($)
 
 	var roundBaloon = function()
 	{
-		var isMSIE = /*@cc_on!@*/false;
-
 		// IE 7 only... orz
-		if ( !isMSIE || !window.XMLHttpRequest || document.querySelectorAll )
+		if ( !isIE() || !window.XMLHttpRequest || document.querySelectorAll )
 		{
 			return;
 		}
@@ -514,9 +496,7 @@ jQuery(function($)
 
 	var addTail = function()
 	{
-		var isMSIE = /*@cc_on!@*/false;
-
-		if ( isMSIE )
+		if ( isIE() )
 		{
 			return;
 		}
@@ -553,6 +533,79 @@ jQuery(function($)
 			"height":"100%",
 			"background":"transparent url('"+duraUrl+"/css/tail.png') left "+tailTop+" no-repeat"
 		});
+	}
+
+	var showControllPanel = function()
+	{
+		if ( isIE() )
+		{
+			isUseSound = false;
+			isUseAnime = false;
+		}
+
+		menuElement.find("li:hidden").show();
+		var soundClass  = ( isUseSound ) ? "sound_on" : "sound_off" ;
+		var memberClass = ( isShowMember ) ? "member_on" : "member_off" ;
+		var animationClass = ( isUseAnime ) ? "animation_on" : "animation_off" ;
+		menuElement.find("li.sound").addClass(soundClass);
+		menuElement.find("li.member").addClass(memberClass);
+		menuElement.find("li.animation").addClass(animationClass);
+	}
+
+	var toggleSound = function()
+	{
+		if ( isUseSound )
+		{
+			$(this).removeClass("sound_on");
+			$(this).addClass("sound_off");
+			isUseSound = false;
+		}
+		else
+		{
+			$(this).removeClass("sound_off");
+			$(this).addClass("sound_on");
+			isUseSound = true;
+		}
+	}
+
+	var toggleMember = function()
+	{
+		if ( isShowMember )
+		{
+			$(this).removeClass("member_on");
+			$(this).addClass("member_off");
+			membersElement.slideUp("slow");
+			isShowMember = false;
+		}
+		else
+		{
+			$(this).removeClass("member_off");
+			$(this).addClass("member_on");
+			membersElement.slideDown("slow");
+			isShowMember = true;
+		}
+	}
+
+	var toggleAnimation = function()
+	{
+		if ( isUseAnime )
+		{
+			$(this).removeClass("animation_on");
+			$(this).addClass("animation_off");
+			isUseAnime = false;
+		}
+		else
+		{
+			$(this).removeClass("animation_off");
+			$(this).addClass("animation_on");
+			isUseAnime = true;
+		}
+	}
+
+	var isIE = function()
+	{
+		var isMSIE = /*@cc_on!@*/false;
+		return isMSIE;
 	}
 
 	var dump = function($val)

@@ -9,7 +9,7 @@ function dura_catalog()
 		"Member should be less than {1}." => "인수는 {1} 명 이하로 해 주십시오.",
 		"Cannot create new room any more." => "더 이상 방을 만들 수 없습니다.",
 		"{1} logged in." => "ーー {1}님이 로그인 하셨습니다.",
-		"{1} logged out." => "ーー {1}님이 로그아웃 하셨ㅅ브니다.",
+		"{1} logged out." => "ーー {1}님이 로그아웃 하셨습니다.",
 		"{1} lost the connection." => "ーー {1}님의 접속이 끊겼습니다.",
 		"Data Error: Room creating failed." => "오류: 방 작성 실패",
 		"Room Name" => "방 이름",

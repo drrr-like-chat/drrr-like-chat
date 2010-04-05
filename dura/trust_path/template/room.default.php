@@ -1,9 +1,16 @@
 <div class="message_box">
 <div class="message_box_inner">
 <form action="#" method="post" id="message">
-<div class="right">
-<input type="submit" name="logout" value="LOGOUT" />
-</div>
+<!--
+<div class="right"><input type="submit" name="logout" value="LOGOUT" /></div>
+-->
+<ul class="menu">
+<li class="sound">&nbsp;</li>
+<li class="member">&nbsp;</li>
+<li class="animation">&nbsp;</li>
+<li class="logout"><input type="submit" name="logout" value="LOGOUT" /></li>
+<li></li>
+</ul>
 <h2><?php e($dura['room']['name']) ?></h2>
 <div>
 <textarea name="message"></textarea>
@@ -29,6 +36,7 @@
 </div>
 </div><!-- end #header -->
 
+<div id="talks_box">
 <div id="talks">
 <?php foreach ( $dura['room']['talks'] as $talk ) : ?>
 <?php if ( !$talk['uid'] ) : ?>
@@ -44,4 +52,5 @@
 </dl>
 <?php endif ?>
 <?php endforeach ?>
-</div><!-- /#logs -->
+</div><!-- /#talks -->
+</div><!-- /#talks_box -->

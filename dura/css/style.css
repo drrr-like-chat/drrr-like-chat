@@ -79,6 +79,7 @@ div.header {
 div.message_box {
 	position: fixed;
 	width: 100%;
+	top: 0;
 	left: 0;
 	background: #efefef;
 	padding: 5px 0 0 0;
@@ -98,6 +99,56 @@ div.message_box_inner {
 	left: 50%;
 	margin-left: -290px;
 }
+
+ul.menu {
+	display: block;
+	float: right;
+	height: 15px;
+	list-style: none;
+	line-height: 15px;
+}
+
+	ul.menu li {
+		display: block;
+		float: left;
+		margin: 0 0 0 10px;
+		cursor: pointer;
+	}
+
+	ul.menu li input {
+		display: block;
+		cursor: pointer;
+	}
+
+	ul.menu li.sound, ul.menu li.member, ul.menu li.animation {
+		width: 15px;
+		display: none;
+	}
+
+	ul.menu li.sound_on {
+		background: transparent url('sound_on.png') left top no-repeat;
+	}
+
+	ul.menu li.sound_off {
+		background: transparent url('sound_off.png') left top no-repeat;
+	}
+
+	ul.menu li.member_on {
+		background: transparent url('member_on.png') left top no-repeat;
+	}
+
+	ul.menu li.member_off {
+		background: transparent url('member_off.png') left top no-repeat;
+	}
+
+	ul.menu li.animation_on {
+		background: transparent url('animation_on.png') left top no-repeat;
+	}
+
+	ul.menu li.animation_off {
+		background: transparent url('animation_off.png') left top no-repeat;
+	}
+
 
 #message {
 	text-align: center;

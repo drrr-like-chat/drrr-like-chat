@@ -26,7 +26,7 @@ class Dura_Class_Icon
 			{
 				while ( ($file = readdir($dir)) !== false )
 				{
-					if ( preg_match('/^icon_(.+)\.gif$/', $file, $match) )
+					if ( preg_match('/^icon_(.+)\.png$/', $file, $match) )
 					{
 						list($dummy, $icon) = $match;
 						$icons[$icon] = $file;

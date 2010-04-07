@@ -70,6 +70,18 @@ class Dura_Controller_Room extends Dura_Abstract_Controller
 		{
 			$this->_message();
 		}
+		elseif ( isset($_POST['room_name']) )
+		{
+			$this->_changeRoomName();
+		}
+		elseif ( isset($_POST['new_host']) )
+		{
+			$this->_handoverHostRight();
+		}
+		elseif ( isset($_POST['ban_user']) )
+		{
+			$this->_banUser();
+		}
 
 		$this->_default();
 	}
@@ -86,7 +98,10 @@ class Dura_Controller_Room extends Dura_Abstract_Controller
 			Dura::trans(t("Room is full.", 'lounge'));
 		}
 
-		// check online
+		$unsetUsers = array();
+		$offset     = 0;
+		$changeHost = false;
+
 		foreach ( $this->roomModel->users as $user )
 		{
 			if ( $user->update < time() - DURA_CHAT_ROOM_EXPIRE )
@@ -99,17 +114,45 @@ class Dura_Controller_Room extends Dura_Abstract_Controller
 				$talk->addChild('message', t("{1} lost the connection.", $userName));
 				$talk->addChild('icon', '');
 				$talk->addChild('time', time());
-				unset($user[0]);
+
+				if ( $this->_isHost($user->id) )
+				{
+					$changeHost = true;
+				}
+
+				$unsetUsers[] = $offset;
 			}
+
+			$offset++;
+		}
+
+		foreach ( $unsetUsers as $unsetUser )
+		{
+			unset($this->roomModel->users[$unsetUser]);
 		}
 
 		$userName = Dura::user()->getName();
 		$userId   = Dura::user()->getId();
+		$userIcon = Dura::user()->getIcon();
+
+		foreach ( $this->roomModel->users as $user )
+		{
+			if ( $userName == (string) $user->name and $userIcon == (string) $user->icon )
+			{
+				Dura::trans(t("Same name user exists. Please rename or change icon.", 'lounge'));
+			}
+		}
 
 		$users = $this->roomModel->addChild('users');
 		$users->addChild('name', $userName);
 		$users->addChild('id', $userId);
+		$users->addChild('icon', $userIcon);
 		$users->addChild('update', time());
+
+		if ( $changeHost )
+		{
+			$this->_moveHostRight();
+		}
 
 		$talk = $this->roomModel->addChild('talks');
 		$talk->addChild('id', md5(microtime().mt_rand()));
@@ -154,7 +197,12 @@ class Dura_Controller_Room extends Dura_Abstract_Controller
 			$talk->addChild('message', t("{1} logged out.", $userName));
 			$talk->addChild('icon', '');
 			$talk->addChild('time', time());
-	
+
+			if ( $this->_isHost() )
+			{
+				$this->_moveHostRight();
+			}
+
 			$this->roomHandler->save($this->id, $this->roomModel);
 		}
 		else
@@ -241,6 +289,156 @@ class Dura_Controller_Room extends Dura_Abstract_Controller
 		}
 
 		return false;
+	}
+
+	protected function _moveHostRight()
+	{
+		foreach ( $this->roomModel->users as $user )
+		{
+			$this->roomModel->host = (string) $user->id;
+			$nextHost = (string) $user->name;
+			break;
+		}
+
+		$talk = $this->roomModel->addChild('talks');
+		$talk->addChild('id', md5(microtime().mt_rand()));
+		$talk->addChild('uid', 0);
+		$talk->addChild('name', 'NPC');
+		$talk->addChild('message', t("{1} is a new host.", $nextHost));
+		$talk->addChild('icon', '');
+		$talk->addChild('time', time());
+	}
+
+	protected function _changeRoomName()
+	{
+		if ( !$this->_isHost() )
+		{
+			die(t("You are not host."));
+		}
+
+		$roomName = Dura::post('room_name');
+		$roomName = trim($roomName);
+
+		if ( $roomName === '' )
+		{
+			die(t("Room name is blank."));
+		}
+
+		if ( mb_strlen($roomName) > 10 )
+		{
+			die(t("Name should be less than 10 letters."));
+		}
+
+		$this->roomModel->name = $roomName;
+
+		$this->roomHandler->save($this->id, $this->roomModel);
+
+		die(t("Room name is modified."));
+	}
+
+	protected function _handoverHostRight()
+	{
+		if ( !$this->_isHost() )
+		{
+			die(t("You are not host."));
+		}
+
+		$nextHostId = Dura::post('new_host');
+
+		if ( $nextHostId === '' )
+		{
+			die(t("Host is invaild."));
+		}
+
+		$userFound = false;
+
+		foreach ( $this->roomModel->users as $user )
+		{
+			if ( $nextHostId == (string) $user->id )
+			{
+				$userFound = true;
+				$nextHost  = (string) $user->name;
+				break;
+			}
+		}
+
+		if ( !$userFound )
+		{
+			die(t("User not found."));
+		}
+
+		$this->roomModel->host = $nextHostId;
+
+		$talk = $this->roomModel->addChild('talks');
+		$talk->addChild('id', md5(microtime().mt_rand()));
+		$talk->addChild('uid', 0);
+		$talk->addChild('name', 'NPC');
+		$talk->addChild('message', t("{1} is a new host.", $nextHost));
+		$talk->addChild('icon', '');
+		$talk->addChild('time', time());
+
+		$this->roomHandler->save($this->id, $this->roomModel);
+
+		die(t("Gave host rights to {1}.", $nextHost));
+	}
+
+	protected function _banUser()
+	{
+		if ( !$this->_isHost() )
+		{
+			die(t("You are not host."));
+		}
+
+		$userId = Dura::post('ban_user');
+
+		if ( $userId === '' )
+		{
+			die(t("User is invaild."));
+		}
+
+		$userFound = false;
+		$userOffset = 0;
+
+		foreach ( $this->roomModel->users as $user )
+		{
+			if ( $userId == (string) $user->id )
+			{
+				$userFound = true;
+				$userName  = (string) $user->name;
+				break;
+			}
+
+			$userOffset++;
+		}
+
+		if ( !$userFound )
+		{
+			die(t("User not found."));
+		}
+
+		unset($this->roomModel->users[$userOffset]);
+
+		$talk = $this->roomModel->addChild('talks');
+		$talk->addChild('id', md5(microtime().mt_rand()));
+		$talk->addChild('uid', 0);
+		$talk->addChild('name', 'NPC');
+		$talk->addChild('message', t("{1} lost the connection.", $userName));
+		$talk->addChild('icon', '');
+		$talk->addChild('time', time());
+
+		$this->roomHandler->save($this->id, $this->roomModel);
+
+		die(t("Banned {1}.", $userName));
+	}
+
+	protected function _isHost($userId = null)
+	{
+		if ( $userId === null )
+		{
+			$userId = Dura::user()->getId();
+		}
+
+		return ( $userId == (string) $this->roomModel->host );
 	}
 }
 

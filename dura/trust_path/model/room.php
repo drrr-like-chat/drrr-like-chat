@@ -20,6 +20,7 @@ class Dura_Model_Room extends Dura_Class_Xml
 		$result['name']   = (string) $this->name;
 		$result['update'] = (int) $this->update;
 		$result['limit']  = (int) $this->limit;
+		$result['host']   = (string) $this->host;
 
 		if ( isset($this->talks) )
 		{

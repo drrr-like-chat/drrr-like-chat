@@ -34,6 +34,19 @@ function dura_catalog()
 		"ID or password is wrong." => "ID나 비밀번호가 옳지 않습니다.",
 		"Announce" => "전체 아나운스",
 		"Admin Announce" => "관리자 아나운스",
+		"{1} is a new host." => "ーー {1}さんにルーム管理権限が移動しました",
+		"Change" => "変更",
+		"Same name user exists. Please rename or change icon." => "같은 이름의 참가자가 있습니다. 이름 또는 아이콘을 바꾸셔서 로그인하세요.",
+		"You are not host." => "권한이 없습니다.",
+		"Room name is blank." => "방 이름이 공백입니다.",
+		"Room name is modified." => "방 이름을 변경했습니다.",
+		"Handover host" => "관리권한 옮기기",
+		"Ban user" => "퇴실시키기",
+		"Host is invaild." => "선택 어류가 발생했습니다.",
+		"User not found." => "유저를 못 찾았습니다.",
+		"Gave host rights to {1}." => "{1} 님에게 관리권한을 옮겼습니다.",
+		"User is invaild." => "선택 어류가 발생했습니다.",
+		"Banned {1}." => "{1} 님을 퇴실시켰습니다.",
 	);
 }
 

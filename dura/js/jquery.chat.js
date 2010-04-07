@@ -11,11 +11,16 @@ jQuery(function($)
 	var buttonElement   = null;
 	var iconElement     = null;
 	var menuElement     = null;
+	var roomNameElement = null;
+	var settingPannelElement = null;
+	var userListElement = null;
 
 	var lastMessage  = '';
+	var lastUpdate   = 0;
 	var isSubmitting = false;
 	var isLoggedOut  = false;
 	var isLoading    = false;
+	var isShowingSettinPannel = false;
 
 	var isUseAnime   = true;
 	var isUseSound   = true;
@@ -50,6 +55,9 @@ jQuery(function($)
 		buttonElement   = $("input[name=post]");
 		iconElement     = $("dl.talk dt");
 		menuElement     = $("ul.menu");
+		roomNameElement = $("#room_name");
+		settingPannelElement = $("#setting_pannel");
+		userListElement = $("#user_list");
 
 		userId   = trim($("#user_id").text());
 		userName = trim($("#user_name").text());
@@ -88,6 +96,10 @@ jQuery(function($)
 		menuElement.find("li.sound").click(toggleSound);
 		menuElement.find("li.member").click(toggleMember);
 		menuElement.find("li.animation").click(toggleAnimation);
+		menuElement.find("li.setting").click(toggleSettingPannel);
+		settingPannelElement.find("input[name=save]").click(changeRoomName);
+		settingPannelElement.find("input[name=handover]").click(handoverHost);
+		settingPannelElement.find("input[name=ban]").click(banUser);
 	}
 
 	var submitMessage = function()
@@ -158,9 +170,7 @@ jQuery(function($)
 			function(data)
 			{
 				isLoading = false;
-				validateResult(data);
-				writeMessages(data);
-				writeUserList(data);
+				updateProccess(data);
 			}
 		, 'xml');
 	}
@@ -172,9 +182,7 @@ jQuery(function($)
 			function(data)
 			{
 				loadMessages();
-				validateResult(data);
-				writeMessages(data);
-				writeUserList(data);
+				updateProccess(data);
 			}
 		, 'xml');
 	}
@@ -185,11 +193,32 @@ jQuery(function($)
 			function(data)
 			{
 				loadMessages();
-				validateResult(data);
-				writeMessages(data);
-				writeUserList(data);
+				updateProccess(data);
 			}
 		, 'xml');
+	}
+
+	var updateProccess = function(data)
+	{
+		var update = $(data).find('room > update').text() * 1;
+
+		if ( lastUpdate == update || settingPannelElement.is(":visible") )
+		{
+			return;
+		}
+
+		lastUpdate = update;
+
+		validateResult(data);
+		writeRoomName(data);
+		writeMessages(data);
+		writeUserList(data);
+		markHost(data);
+	}
+
+	var writeRoomName = function(data)
+	{
+		roomNameElement.text($(data).find('room > name').text());
 	}
 
 	var writeMessages = function(data)
@@ -237,15 +266,46 @@ jQuery(function($)
 	var writeUserList = function(data)
 	{
 		membersElement.find("li").remove();
+		userListElement.find("li").remove();
 
 		var total = $(data).find("users").length;
 		membersElement.append('<li>('+total+')</li>');
+
+		var host  = $(data).find("host").text();
 
 		$.each($(data).find("users"), 
 			function()
 			{
 				var name = $(this).find("name").text();
-				membersElement.append('<li>'+name+'</li>');
+				var id   = $(this).find("id").text();
+				var icon = $(this).find("icon").text();
+				var hostMark = "";
+
+				if ( host == id ) hostMark = " "+t("(host)");
+
+				membersElement.append('<li>'+name+hostMark+'</li>');
+
+				if ( host == id ) return;
+
+				userListElement.append('<li>'+name+'</li>');
+				userListElement.find("li:last").css({
+					'background':'transparent url("'+duraUrl+'/css/icon_'+icon+'.png") center top no-repeat'
+				}).attr('name', id).click(
+					function()
+					{
+						if ( $(this).hasClass('select') )
+						{
+							userListElement.find("li").removeClass('select');
+							settingPannelElement.find("input[name=handover], input[name=ban]").attr('disabled', 'disabled');
+						}
+						else
+						{
+							userListElement.find("li").removeClass('select');
+							$(this).addClass('select');
+							settingPannelElement.find("input[name=handover], input[name=ban]").removeAttr('disabled');
+						}
+					}
+				);
 			}
 		);
 
@@ -543,7 +603,7 @@ jQuery(function($)
 			isUseAnime = false;
 		}
 
-		menuElement.find("li:hidden").show();
+		menuElement.find("li:hidden:not(.setting)").show();
 		var soundClass  = ( isUseSound ) ? "sound_on" : "sound_off" ;
 		var memberClass = ( isShowMember ) ? "member_on" : "member_off" ;
 		var animationClass = ( isUseAnime ) ? "animation_on" : "animation_off" ;
@@ -599,6 +659,71 @@ jQuery(function($)
 			$(this).removeClass("animation_off");
 			$(this).addClass("animation_on");
 			isUseAnime = true;
+		}
+	}
+
+	var toggleSettingPannel = function()
+	{
+		settingPannelElement.find("input[name=handover], input[name=ban]").attr('disabled', 'disabled');
+		buttonElement.slideToggle();
+		textareaElement.slideToggle();
+		settingPannelElement.slideToggle();
+	}
+
+	var markHost = function(data)
+	{
+		if ( $(data).find('host').text() == userId )
+		{
+			menuElement.find("li.setting").show();
+		}
+		else
+		{
+			menuElement.find("li.setting").hide();
+		}
+	}
+
+	var changeRoomName = function()
+	{
+		var roomName = settingPannelElement.find("input[name=room_name]").val();
+
+		$.post(postAction, {'room_name':roomName}, 
+			function(result)
+			{
+				alert(result);
+				toggleSettingPannel();
+			}
+		);
+	}
+
+	var handoverHost = function()
+	{
+		var id = userListElement.find("li.select").attr("name");
+
+		if ( confirm(t("Are you sure to handover host rights?")) )
+		{
+			$.post(postAction, {'new_host':id}, 
+				function(result)
+				{
+					alert(result);
+					toggleSettingPannel();
+				}
+			);
+		}
+	}
+
+	var banUser = function()
+	{
+		var id = userListElement.find("li.select").attr("name");
+
+		if ( confirm(t("Are you sure to ban this user?")) )
+		{
+			$.post(postAction, {'ban_user':id}, 
+				function(result)
+				{
+					alert(result);
+					toggleSettingPannel();
+				}
+			);
 		}
 	}
 

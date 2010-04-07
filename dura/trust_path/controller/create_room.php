@@ -58,6 +58,7 @@ class Dura_Controller_CreateRoom extends Dura_Abstract_Controller
 	{
 		$this->input['name']  = Dura::post('name');
 		$this->input['limit'] = Dura::post('limit');
+		$this->input['name']  = trim($this->input['name']);
 	}
 
 	protected function _default()
@@ -145,18 +146,21 @@ class Dura_Controller_CreateRoom extends Dura_Abstract_Controller
 
 	protected function _createRoom()
 	{
+		$userName = Dura::user()->getName();
+		$userId   = Dura::user()->getId();
+		$userIcon = Dura::user()->getIcon();
+
 		$roomHandler = new Dura_Model_RoomHandler;
 		$roomModel = $roomHandler->create();
 		$roomModel->name   = $this->input['name'];
 		$roomModel->update = time();
 		$roomModel->limit  = $this->input['limit'];
-
-		$userName = Dura::user()->getName();
-		$userId   = Dura::user()->getId();
+		$roomModel->host   = $userId;
 
 		$users = $roomModel->addChild('users');
 		$users->addChild('name', $userName);
 		$users->addChild('id', $userId);
+		$users->addChild('icon', $userIcon);
 		$users->addChild('update', time());
 
 		$talk = $roomModel->addChild('talks');

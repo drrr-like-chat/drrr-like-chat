@@ -34,6 +34,19 @@ function dura_catalog()
 		"ID or password is wrong." => "IDかパスワードが正しくありません。",
 		"Announce" => "全室アナウンス",
 		"Admin Announce" => "管理者アナウンス",
+		"{1} is a new host." => "ーー {1}さんにルーム管理権限が移動しました",
+		"Change" => "変更",
+		"Same name user exists. Please rename or change icon." => "同じ名前のユーザがいるため参加できません。名前かアイコンを変更してください。",
+		"You are not host." => "権限がありません。",
+		"Room name is blank." => "部屋名が空欄です。",
+		"Room name is modified." => "部屋名を変更しました。",
+		"Handover host" => "管理権限を渡す",
+		"Ban user" => "退室させる",
+		"Host is invaild." => "ユーザの選択エラー。",
+		"User not found." => "ユーザが見つかりません。",
+		"Gave host rights to {1}." => "{1}さんに管理権限を渡しました。",
+		"User is invaild." => "ユーザの選択エラー。",
+		"Banned {1}." => "{1}さんを退室させました。",
 	);
 }
 

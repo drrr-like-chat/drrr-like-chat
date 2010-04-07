@@ -1,7 +1,6 @@
 * {
 	padding: 0;
 	margin: 0;
-	border: 0;
 }
 
 body {
@@ -25,6 +24,10 @@ input, textarea{
 
 .hide {
 	display: none;
+}
+
+.transparent {
+	opacity: 0.8;
 }
 
 div#body {
@@ -57,6 +60,7 @@ div.header {
 }
 
 	.button input {
+		border: 0;
 	    background: transparent url('bg_button_span.gif') no-repeat;
 		width: 120px;
 	    height: 24px;
@@ -117,12 +121,21 @@ ul.menu {
 
 	ul.menu li input {
 		display: block;
+		font-size: 11px;
+		height: 15px;
+		line-height: 12px;
 		cursor: pointer;
+		border: 1px gray solid;
+		padding: 0;
 	}
 
-	ul.menu li.sound, ul.menu li.member, ul.menu li.animation {
+	ul.menu li.setting, ul.menu li.sound, ul.menu li.member, ul.menu li.animation {
 		width: 15px;
 		display: none;
+	}
+
+	ul.menu li.setting {
+		background: transparent url('setting.png') left top no-repeat;
 	}
 
 	ul.menu li.sound_on {
@@ -149,6 +162,30 @@ ul.menu {
 		background: transparent url('animation_off.png') left top no-repeat;
 	}
 
+#setting_pannel {
+	clear: both;
+	padding: 20px 0;
+}
+
+	#setting_pannel ul#user_list {
+		list-style: none;
+	}
+
+		#setting_pannel ul#user_list li {
+			min-height: 20px;
+			width: 80px;
+			padding-top: 60px;
+			text-align: center;
+			display: block;
+			float: left;
+			line-height: 20px;
+			border: 2px solid transparent;
+			margin: 10px;
+		}
+
+		#setting_pannel ul#user_list li.select {
+			border: 2px solid #ff6600;
+		}
 
 #message {
 	text-align: center;
@@ -174,6 +211,7 @@ ul.menu {
 
 	#message div.submit input {
 		display:block;
+		border: 0;
 		margin: 5px 180px;
 		height: 25px;
 		width: 200px;
@@ -215,7 +253,11 @@ ul.menu {
 			line-height: 20px;
 			float: left;
 		}
-	
+
+		#talks dl.talk dt.select {
+			border: 2px solid #ff6600;
+		}
+
 		#talks dl.talk dd {
 			display: inline-block;
 			max-width: 510px;
@@ -237,7 +279,7 @@ ul.menu {
 			}
 			
 			#talks dl.setton dt {
-				background: transparent url('icon_setton.gif') no-repeat center top;
+				background: transparent url('icon_setton.png') no-repeat center top;
 			}
 			
 			#talks dl.setton dd div.bubble p.body {
@@ -245,7 +287,7 @@ ul.menu {
 			}
 			
 			#talks dl.tanaka dt {
-				background: transparent url('icon_tanaka.gif') no-repeat center top;
+				background: transparent url('icon_tanaka.png') no-repeat center top;
 			}
 			
 			#talks dl.tanaka dd div.bubble p.body {
@@ -253,7 +295,7 @@ ul.menu {
 			}
 			
 			#talks dl.kanra dt {
-				background: transparent url('icon_kanra.gif') no-repeat center top;
+				background: transparent url('icon_kanra.png') no-repeat center top;
 			}
 			
 			#talks dl.kanra dd div.bubble p.body {
@@ -261,7 +303,7 @@ ul.menu {
 			}
 			
 			#talks dl.zaika dt {
-				background: transparent url('icon_zaika.gif') no-repeat center top;
+				background: transparent url('icon_zaika.png') no-repeat center top;
 			}
 			
 			#talks dl.zawa dd div.bubble p.body {
@@ -269,7 +311,7 @@ ul.menu {
 			}
 			
 			#talks dl.zawa dt {
-				background: transparent url('icon_zawa.gif') no-repeat center top;
+				background: transparent url('icon_zawa.png') no-repeat center top;
 			}
 			
 			#talks dl.zaika dd div.bubble p.body {
@@ -277,7 +319,7 @@ ul.menu {
 			}
 			
 			#talks dl.gg dt {
-				background: transparent url('icon_gg.gif') no-repeat center top;
+				background: transparent url('icon_gg.png') no-repeat center top;
 			}
 			
 			#talks dl.gg dd div.bubble p.body {
@@ -285,7 +327,7 @@ ul.menu {
 			}
 			
 			#talks dl.admin dt {
-				background: transparent url('icon_admin.gif') no-repeat center top;
+				background: transparent url('icon_admin.png') no-repeat center top;
 			}
 			
 			#talks dl.admin dd div.bubble p.body {
@@ -424,6 +466,7 @@ ul.rooms {
 ul#members {
 	list-style-type: none;
 	text-align: left;
+	clear: both;
 }
 
 	ul#members li {

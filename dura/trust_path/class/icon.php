@@ -42,7 +42,7 @@ class Dura_Class_Icon
 
 	public static function getIconUrl($icon)
 	{
-		$url = DURA_URL.'/css/icon_'.$icon.'.gif';
+		$url = DURA_URL.'/css/icon_'.$icon.'.png';
 		return $url;
 	}
 }

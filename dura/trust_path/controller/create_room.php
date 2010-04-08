@@ -17,6 +17,7 @@ class Dura_Controller_CreateRoom extends Dura_Abstract_Controller
 	protected $input = null;
 
 	protected $userMax = null;
+	protected $languages = array();
 
 	public function __construct()
 	{
@@ -26,6 +27,8 @@ class Dura_Controller_CreateRoom extends Dura_Abstract_Controller
 	public function main()
 	{
 		$this->_redirectToRoom();
+
+		$this->_languages();
 
 		$this->_roomLimit();
 
@@ -58,13 +61,16 @@ class Dura_Controller_CreateRoom extends Dura_Abstract_Controller
 	{
 		$this->input['name']  = Dura::post('name');
 		$this->input['limit'] = Dura::post('limit');
+		$this->input['language']  = Dura::post('language');
 		$this->input['name']  = trim($this->input['name']);
+		$this->input['language']  = trim($this->input['language']);
 	}
 
 	protected function _default()
 	{
 		$this->output['user_min'] = DURA_USER_MIN;
 		$this->output['user_max'] = $this->userMax;
+		$this->output['languages'] = $this->languages;
 		$this->output['input'] = $this->input;
 		$this->output['error'] = $this->error;
 		$this->_view();
@@ -101,6 +107,11 @@ class Dura_Controller_CreateRoom extends Dura_Abstract_Controller
 		if ( $limit > $this->userMax )
 		{
 			throw new Exception(t("Member should be less than {1}.", $this->userMax));
+		}
+
+		if ( !in_array($this->input['language'], array_keys($this->languages)) )
+		{
+			throw new Exception(t("The language is not in the option."));
 		}
 	}
 
@@ -156,6 +167,7 @@ class Dura_Controller_CreateRoom extends Dura_Abstract_Controller
 		$roomModel->update = time();
 		$roomModel->limit  = $this->input['limit'];
 		$roomModel->host   = $userId;
+		$roomModel->language = $this->input['language'];
 
 		$users = $roomModel->addChild('users');
 		$users->addChild('name', $userName);
@@ -163,11 +175,17 @@ class Dura_Controller_CreateRoom extends Dura_Abstract_Controller
 		$users->addChild('icon', $userIcon);
 		$users->addChild('update', time());
 
+		if ( Dura::$language != $this->input['language'] )
+		{
+			$langFile = DURA_TRUST_PATH.'/language/'.$this->input['language'].'.php';
+			Dura::$catalog = require $langFile;
+		}
+
 		$talk = $roomModel->addChild('talks');
 		$talk->addChild('id', md5(microtime().mt_rand()));
 		$talk->addChild('uid', 0);
-		$talk->addChild('name', 'NPC');
-		$talk->addChild('message', t("{1} logged in.", $userName));
+		$talk->addChild('name', $userName);
+		$talk->addChild('message', "{1} logged in.");
 		$talk->addChild('icon', '');
 		$talk->addChild('time', time());
 
@@ -181,6 +199,23 @@ class Dura_Controller_CreateRoom extends Dura_Abstract_Controller
 		Dura_Class_RoomSession::create($id);
 
 		Dura::redirect('room');
+	}
+
+	protected function _languages()
+	{
+		require_once DURA_TRUST_PATH.'/language/list.php';
+
+		$languages = dura_get_language_list();
+
+		foreach ( $languages as $langcode => $name )
+		{
+			if ( !file_exists(DURA_TRUST_PATH.'/language/'.$langcode.'.php') )
+			{
+				unset($languages[$langcode]);
+			}
+		}
+
+		$this->languages = $languages;
 	}
 }
 

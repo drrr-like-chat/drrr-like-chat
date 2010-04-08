@@ -15,7 +15,7 @@ useComet = <?php e(DURA_USE_COMET) ?>;
 //-->
 </script>
 <script type="text/javascript" src="<?php e(DURA_URL) ?>/js/translator.js"></script>
-<script type="text/javascript" src="<?php e(DURA_URL) ?>/js/language/<?php e(DURA_LANGUAGE) ?>.js"></script>
+<script type="text/javascript" src="<?php e(DURA_URL) ?>/js/language/<?php e(Dura::$language) ?>.js"></script>
 
 <?php if ( Dura::$controller == 'room' ) : ?>
 <script type="text/javascript" src="<?php e(DURA_URL) ?>/js/jquery.sound.js"></script>

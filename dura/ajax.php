@@ -20,14 +20,9 @@ else
 	require 'setting.dist.php';
 }
 
-require DURA_TRUST_PATH.'/class/user.php';
-require DURA_TRUST_PATH.'/class/xml.php';
-require DURA_TRUST_PATH.'/class/xml_handler.php';
-require DURA_TRUST_PATH.'/model/room.php';
-require DURA_TRUST_PATH.'/model/room_handler.php';
+require 'dura.php';
 
-session_name(DURA_SESSION_NAME);
-session_start();
+Dura::setup();
 
 if ( !isset($_SESSION['room']['id']) )
 {
@@ -96,6 +91,17 @@ if ( !$isLogin )
 }
 
 $roomModel->addChild('error', 0);
+
+foreach ( $roomModel->talks as $talk )
+{
+	if ( (string) $talk->uid == 0 )
+	{
+		$name    = (string) $talk->name;
+		$message = (string) $talk->message;
+
+		$talk->message = t($message, $name);
+	}
+}
 
 header('Content-Type: application/xml; charset=UTF-8');
 die($roomModel->asXML());

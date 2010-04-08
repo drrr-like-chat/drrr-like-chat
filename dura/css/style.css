@@ -338,6 +338,10 @@ ul.menu {
 	min-height: 100px;
 }
 
+#login .language {
+	text-align: right;
+}
+
 #login .field {
 	text-align: center;
 	width: 280px;
@@ -442,21 +446,20 @@ ul.rooms {
 		display: block;
 		text-align: center;
 		float: left;
-		padding: 5px 0;
+		padding: 8px 0;
 	}
 
 	ul.rooms li.name {
 		width: 180px;
 		text-align: left;
-		margin-left: 120px;
 	}
 
 	ul.rooms li.creater {
-		width: 200px;
+		width: 180px;
 	}
 
 	ul.rooms li.member {
-		width: 80px;
+		width: 70px;
 	}
 
 	ul.rooms li.login {

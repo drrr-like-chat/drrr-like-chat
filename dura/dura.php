@@ -22,6 +22,7 @@ class Dura
 	public static $roomId;
 
 	public static $catalog = array();
+	public static $language = null;
 
 	public static function setup()
 	{
@@ -38,9 +39,16 @@ class Dura
 
 		mb_internal_encoding('UTF-8');
 
-		require DURA_TRUST_PATH.'/language/'.DURA_LANGUAGE.'.php';
+		$langFile = DURA_TRUST_PATH.'/language/'.self::user()->getLanguage().'.php';
+		self::$language = self::user()->getLanguage();
 
-		self::$catalog = dura_catalog();
+		if ( !file_exists($langFile) )
+		{
+			$langFile = DURA_TRUST_PATH.'/language/'.DURA_LANGUAGE.'.php';
+			self::$language = DURA_LANGUAGE;
+		}
+
+		self::$catalog = require $langFile;
 
 		define('DURA_LOADED', true);
 	}

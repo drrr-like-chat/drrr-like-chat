@@ -24,6 +24,16 @@
 </td>
 </tr>
 <tr>
+<td><?php e(t("Language")) ?></td>
+<td>
+<select name="language">
+<?php foreach ( $dura['languages'] as $langcode => $language ): ?>
+<option value="<?php e($langcode) ?>"<?php if ($langcode == Dura::user()->getLanguage() ) : ?> selected="selected"<?php endif ?>><?php e($language) ?></option>
+<?php endforeach ?>
+</select>
+</td>
+</tr>
+<tr>
 <td></td>
 <td>
 <span class="button">

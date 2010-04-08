@@ -107,13 +107,8 @@ class Dura_Controller_Room extends Dura_Abstract_Controller
 			if ( $user->update < time() - DURA_CHAT_ROOM_EXPIRE )
 			{
 				$userName = (string) $user->name;
-				$talk = $this->roomModel->addChild('talks');
-				$talk->addChild('id', md5(microtime().mt_rand()));
-				$talk->addChild('uid', 0);
-				$talk->addChild('name', 'NPC');
-				$talk->addChild('message', t("{1} lost the connection.", $userName));
-				$talk->addChild('icon', '');
-				$talk->addChild('time', time());
+
+				$this->_npcDisconnect($userName);
 
 				if ( $this->_isHost($user->id) )
 				{
@@ -154,13 +149,7 @@ class Dura_Controller_Room extends Dura_Abstract_Controller
 			$this->_moveHostRight();
 		}
 
-		$talk = $this->roomModel->addChild('talks');
-		$talk->addChild('id', md5(microtime().mt_rand()));
-		$talk->addChild('uid', 0);
-		$talk->addChild('name', 'NPC');
-		$talk->addChild('message', t("{1} logged in.", $userName));
-		$talk->addChild('icon', '');
-		$talk->addChild('time', time());
+		$this->_npcLogin($userName);
 
 		$this->roomHandler->save($this->id, $this->roomModel);
 
@@ -190,13 +179,7 @@ class Dura_Controller_Room extends Dura_Abstract_Controller
 
 		if ( count($this->roomModel->users) )
 		{
-			$talk = $this->roomModel->addChild('talks');
-			$talk->addChild('id', md5(microtime().mt_rand()));
-			$talk->addChild('uid', 0);
-			$talk->addChild('name', 'NPC');
-			$talk->addChild('message', t("{1} logged out.", $userName));
-			$talk->addChild('icon', '');
-			$talk->addChild('time', time());
+			$this->_npcLogout($userName);
 
 			if ( $this->_isHost() )
 			{
@@ -264,6 +247,15 @@ class Dura_Controller_Room extends Dura_Abstract_Controller
 
 		$room['talks'] = array_reverse($room['talks']);
 
+		foreach ( $room['talks'] as $k => $talk )
+		{
+			if ( $talk['uid'] == 0 )
+			{
+				$name = $talk['name'];
+				$room['talks'][$k]['message'] = t($talk['message'], $name);
+			}
+		}
+
 		$this->output['room'] = $room;
 
 		$this->output['user'] = array(
@@ -300,13 +292,7 @@ class Dura_Controller_Room extends Dura_Abstract_Controller
 			break;
 		}
 
-		$talk = $this->roomModel->addChild('talks');
-		$talk->addChild('id', md5(microtime().mt_rand()));
-		$talk->addChild('uid', 0);
-		$talk->addChild('name', 'NPC');
-		$talk->addChild('message', t("{1} is a new host.", $nextHost));
-		$talk->addChild('icon', '');
-		$talk->addChild('time', time());
+		$this->_npcNewHost($nextHost);
 	}
 
 	protected function _changeRoomName()
@@ -369,13 +355,7 @@ class Dura_Controller_Room extends Dura_Abstract_Controller
 
 		$this->roomModel->host = $nextHostId;
 
-		$talk = $this->roomModel->addChild('talks');
-		$talk->addChild('id', md5(microtime().mt_rand()));
-		$talk->addChild('uid', 0);
-		$talk->addChild('name', 'NPC');
-		$talk->addChild('message', t("{1} is a new host.", $nextHost));
-		$talk->addChild('icon', '');
-		$talk->addChild('time', time());
+		$this->_npcNewHost($nextHost);
 
 		$this->roomHandler->save($this->id, $this->roomModel);
 
@@ -418,13 +398,7 @@ class Dura_Controller_Room extends Dura_Abstract_Controller
 
 		unset($this->roomModel->users[$userOffset]);
 
-		$talk = $this->roomModel->addChild('talks');
-		$talk->addChild('id', md5(microtime().mt_rand()));
-		$talk->addChild('uid', 0);
-		$talk->addChild('name', 'NPC');
-		$talk->addChild('message', t("{1} lost the connection.", $userName));
-		$talk->addChild('icon', '');
-		$talk->addChild('time', time());
+		$this->_npcDisconnect($userName);
 
 		$this->roomHandler->save($this->id, $this->roomModel);
 
@@ -439,6 +413,50 @@ class Dura_Controller_Room extends Dura_Abstract_Controller
 		}
 
 		return ( $userId == (string) $this->roomModel->host );
+	}
+
+	protected function _npcLogin($userName)
+	{
+		$talk = $this->roomModel->addChild('talks');
+		$talk->addChild('id', md5(microtime().mt_rand()));
+		$talk->addChild('uid', 0);
+		$talk->addChild('name', $userName);
+		$talk->addChild('message', "{1} logged in.");
+		$talk->addChild('icon', '');
+		$talk->addChild('time', time());
+	}
+
+	protected function _npcLogout($userName)
+	{
+		$talk = $this->roomModel->addChild('talks');
+		$talk->addChild('id', md5(microtime().mt_rand()));
+		$talk->addChild('uid', 0);
+		$talk->addChild('name', $userName);
+		$talk->addChild('message', "{1} logged out.");
+		$talk->addChild('icon', '');
+		$talk->addChild('time', time());
+	}
+
+	protected function _npcDisconnect($userName)
+	{
+		$talk = $this->roomModel->addChild('talks');
+		$talk->addChild('id', md5(microtime().mt_rand()));
+		$talk->addChild('uid', 0);
+		$talk->addChild('name', $userName);
+		$talk->addChild('message', "{1} lost the connection.");
+		$talk->addChild('icon', '');
+		$talk->addChild('time', time());
+	}
+
+	protected function _npcNewHost($userName)
+	{
+		$talk = $this->roomModel->addChild('talks');
+		$talk->addChild('id', md5(microtime().mt_rand()));
+		$talk->addChild('uid', 0);
+		$talk->addChild('name', $userName);
+		$talk->addChild('message', "{1} is a new host.");
+		$talk->addChild('icon', '');
+		$talk->addChild('time', time());
 	}
 }
 

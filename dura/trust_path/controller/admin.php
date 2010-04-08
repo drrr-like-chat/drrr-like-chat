@@ -67,7 +67,7 @@ class Dura_Controller_Admin extends Dura_Abstract_Controller
 		}
 
 		$user =& Dura_Class_User::getInstance();
-		$user->login($name, 'admin', true);
+		$user->login($name, 'admin', DURA_LANGUAGE, true);
 
 		Dura_Class_Ticket::destory();
 

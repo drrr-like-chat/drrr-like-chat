@@ -31,12 +31,11 @@
 
 <div class="clear"></div>
 
-<?php foreach ( $dura['rooms'] as $room ) : ?>
+<?php foreach ( $dura['rooms'] as $rooms ) : ?>
+<?php foreach ( $rooms as $room ) : ?>
 <ul class="rooms">
 <li class="name"><?php e($room['name']) ?></li>
-<?php /*
 <li class="creater"><?php echo $room['creater'] ?></li>
-*/ ?>
 <li class="member"><?php e($room['total']) ?> / <?php e($room['limit']) ?></li>
 <li class="login">
 <?php if ( $room['total'] >= $room['limit'] ) : ?>
@@ -51,6 +50,7 @@
 <?php endif ?>
 </li>
 </ul>
+<?php endforeach ?>
 <?php endforeach ?>
 
 <div class="clear"></div>

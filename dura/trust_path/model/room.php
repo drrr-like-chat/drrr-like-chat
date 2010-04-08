@@ -21,6 +21,7 @@ class Dura_Model_Room extends Dura_Class_Xml
 		$result['update'] = (int) $this->update;
 		$result['limit']  = (int) $this->limit;
 		$result['host']   = (string) $this->host;
+		$result['language'] = (string) $this->language;
 
 		if ( isset($this->talks) )
 		{

@@ -18,6 +18,7 @@ class Dura_Class_User
 	protected $id   = null;
 	protected $expire = null;
 	protected $admin = false;
+	protected $language = null;
 
 	protected function __construct()
 	{
@@ -35,11 +36,12 @@ class Dura_Class_User
 		return $instance;
 	}
 
-	public function login($name, $icon, $admin = false)
+	public function login($name, $icon, $language, $admin = false)
 	{
 		$this->name = $name;
 		$this->icon = $icon;
 		$this->id = md5($name.getenv('REMOTE_ADDR'));
+		$this->language = $language;
 		$this->admin = $admin;
 
 		$_SESSION['user'] = $this;
@@ -55,6 +57,7 @@ class Dura_Class_User
 			$this->id     = $user->id;
 			$this->expire = $user->expire;
 			$this->id     = $user->id;
+			$this->language = $user->language;
 			$this->admin  = $user->admin;
 		}
 	}
@@ -93,6 +96,11 @@ class Dura_Class_User
 		if ( !$this->isUser() ) return false;
 
 		return $this->id;
+	}
+
+	public function getLanguage()
+	{
+		return $this->language;
 	}
 
 	public function getExpire()

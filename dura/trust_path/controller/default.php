@@ -50,8 +50,10 @@ class Dura_Controller_Default extends Dura_Abstract_Controller
 	{
 		$name = Dura::post('name');
 		$icon = Dura::post('icon');
+		$language = Dura::post('language');
 		$name = trim($name);
 		$icon = trim($icon);
+		$language = trim($language);
 
 		if ( $name === '' )
 		{
@@ -77,7 +79,7 @@ class Dura_Controller_Default extends Dura_Abstract_Controller
 		}
 
 		$user =& Dura_Class_User::getInstance();
-		$user->login($name, $icon);
+		$user->login($name, $icon, $language);
 
 		Dura_Class_Ticket::destory();
 
@@ -86,6 +88,38 @@ class Dura_Controller_Default extends Dura_Abstract_Controller
 
 	protected function _default()
 	{
+		require_once DURA_TRUST_PATH.'/language/list.php';
+
+		$languages = dura_get_language_list();
+
+		foreach ( $languages as $langcode => $name )
+		{
+			if ( !file_exists(DURA_TRUST_PATH.'/language/'.$langcode.'.php') )
+			{
+				unset($languages[$langcode]);
+			}
+		}
+
+		$acceptLangs = getenv('HTTP_ACCEPT_LANGUAGE');
+		$acceptLangs = explode(',', $acceptLangs);
+		$defaultLanguage = DURA_LANGUAGE;
+
+		foreach ( $acceptLangs as $k => $acceptLang )
+		{
+			@list($langcode, $dummy) = explode(';', $acceptLang);
+
+			foreach ( $languages as $language => $v )
+			{
+				if ( stripos($language, $langcode) === 0 )
+				{
+					$defaultLanguage = $language;
+					break 2;
+				}
+			}
+		}
+
+		$this->output['languages'] = $languages;
+		$this->output['default_language'] = $defaultLanguage;
 		$this->output['icons'] = $this->icons;
 		$this->output['error'] = $this->error;
 		$this->output['token'] = Dura_Class_Ticket::issue();

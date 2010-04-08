@@ -66,15 +66,30 @@ class Dura_Controller_Lounge extends Dura_Abstract_Controller
 				continue;
 			}
 
+			$room['creater'] = '';
+
+			foreach ( $room['users'] as $user )
+			{
+				if ( $user['id'] == $room['host'] )
+				{
+					$room['creater'] = $user['name'];
+				}
+			}
+
 			$room['id']  = $id;
 			$room['total'] = count($room['users']);
 			$room['url'] = Dura::url('room');
-			$rooms[] = $room;
+
+			$lang = (int) ( $room['language'] != Dura::user()->getLanguage() );
+
+			$rooms[$lang][] = $room;
 
 			$activeUser += $room['total'];
 		}
 
 		unset($roomHandler, $roomModels, $roomModel, $room);
+
+		ksort($rooms);
 
 		$this->output['rooms'] = $rooms;
 		$this->output['active_user'] = $activeUser;

@@ -8,7 +8,7 @@ return array(
 	"Cannot create new room any more." => "You can't create a new room any more.",
 	"{1} logged in." => "-- {1} logged in.",
 	"{1} logged out." => "-- {1} logged out.",
-	"{1} lost the connection." => "-- {1} lost the connenction.",
+	"{1} lost the connection." => "-- {1} got disconnected.",
 	"Data Error: Room creating failed." => "Error: Failed to create a room.",
 	"Room Name" => "Room name",
 	"Max Members" => "User capacity",

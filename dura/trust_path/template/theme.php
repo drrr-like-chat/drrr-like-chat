@@ -2,6 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"> 
 <head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" /> 
+<meta name="viewport" content="width = 620" />
 <title><?php e(t(DURA_TITLE)) ?> | <?php e(t(DURA_SUBTITLE)) ?></title>
 <link href="<?php echo DURA_URL; ?>/css/style.css" rel="stylesheet" type="text/css" media="screen" />
 <script type="text/javascript" src="http://www.google.com/jsapi"></script> 

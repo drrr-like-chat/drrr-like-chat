@@ -9,7 +9,7 @@ function dura_get_language_list()
 		'zh-TW' => "中文(繁體)",
 		'ru-RU' => "Русский",
 		'it-IT' => "Italiano",
-		'pl-PT' => "Português",
+		'pl-PL' => "Polska",
 		'zh-CN' => "中文(簡体)",
 	);
 }

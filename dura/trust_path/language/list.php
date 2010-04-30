@@ -11,6 +11,7 @@ function dura_get_language_list()
 		'it-IT' => "Italiano",
 		'pl-PL' => "Polska",
 		'zh-CN' => "中文(簡体)",
+		'pt-BR' => "Português(Brazil)",
 	);
 }
 

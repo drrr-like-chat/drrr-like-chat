@@ -53,6 +53,9 @@ class Dura_Controller_Lounge extends Dura_Abstract_Controller
 
 		$rooms = array();
 
+		$lang = Dura::user()->getLanguage();
+		$rooms[$lang] = array();
+
 		$roomExpire = time() - DURA_CHAT_ROOM_EXPIRE;
 		$activeUser = 0;
 
@@ -80,7 +83,7 @@ class Dura_Controller_Lounge extends Dura_Abstract_Controller
 			$room['total'] = count($room['users']);
 			$room['url'] = Dura::url('room');
 
-			$lang = (int) ( $room['language'] != Dura::user()->getLanguage() );
+			$lang = $room['language'];
 
 			$rooms[$lang][] = $room;
 
@@ -88,8 +91,6 @@ class Dura_Controller_Lounge extends Dura_Abstract_Controller
 		}
 
 		unset($roomHandler, $roomModels, $roomModel, $room);
-
-		ksort($rooms);
 
 		$this->output['rooms'] = $rooms;
 		$this->output['active_user'] = $activeUser;

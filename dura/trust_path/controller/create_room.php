@@ -26,6 +26,8 @@ class Dura_Controller_CreateRoom extends Dura_Abstract_Controller
 
 	public function main()
 	{
+		$this->_validateUser();
+
 		$this->_redirectToRoom();
 
 		$this->_languages();

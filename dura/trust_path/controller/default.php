@@ -118,6 +118,8 @@ class Dura_Controller_Default extends Dura_Abstract_Controller
 			}
 		}
 
+		asort($languages);
+
 		$this->output['languages'] = $languages;
 		$this->output['default_language'] = $defaultLanguage;
 		$this->output['icons'] = $this->icons;

@@ -13,6 +13,11 @@ function dura_get_language_list()
 		'zh-CN' => "中文(簡体)",
 		'pt-BR' => "Português(Brazil)",
 		'eo'    => "Esperanto",
+		'es-ES' => "Español",
+		'id-ID' => "Bahasa Indonesia",
+		'de-DE' => "Deutsch",
+		'tr-TR' => "Türkçe",
+		'he-IL' => "עברית‎",
 	);
 }
 

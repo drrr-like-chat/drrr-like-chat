@@ -1,114 +1,96 @@
 <?php
-/**
- * A simple description for this script
- *
- * PHP Version 5.2.0 or Upper version
- *
- * @package    Dura
- * @author     Hidehito NOZAWA aka Suin <http://suin.asia>
- * @copyright  2010 Hidehito NOZAWA
- 
- *
- */
 
 class Dura_Controller_Lounge extends Dura_Abstract_Controller
 {
-	public function __construct()
-	{
-		parent::__construct();
-	}
+    public function __construct()
+    {
+        parent::__construct();
+    }
 
-	public function main()
-	{
-		$this->_validateUser();
+    public function main()
+    {
+        $this->_validateUser();
 
-		$this->_default();
-	}
+        $this->_default();
+    }
 
-	protected function _default()
-	{
-		$this->_redirectToRoom();
+    protected function _default()
+    {
+        $this->_redirectToRoom();
 
-		$this->_rooms();
+        $this->_rooms();
 
-		$this->_profile();
+        $this->_profile();
 
-		$this->output['create_room_url'] = Dura::url('create_room');
+        $this->output['create_room_url'] = Dura::url('create_room');
 
-		$this->_view();
-	}
+        $this->_view();
+    }
 
-	protected function _redirectToRoom()
-	{
-		if ( Dura_Class_RoomSession::isCreated() )
-		{
-			Dura::redirect('room');
-		}
-	}
+    protected function _redirectToRoom()
+    {
+        if (Dura_Class_RoomSession::isCreated()) {
+            Dura::redirect('room');
+        }
+    }
 
-	protected function _rooms()
-	{
-		$roomHandler = new Dura_Model_RoomHandler;
-		$roomModels = $roomHandler->loadAll();
+    protected function _rooms()
+    {
+        $roomHandler = new Dura_Model_RoomHandler;
+        $roomModels = $roomHandler->loadAll();
 
-		$rooms = array();
+        $rooms = array();
 
-		$lang = Dura::user()->getLanguage();
-		$rooms[$lang] = array();
+        $lang = Dura::user()->getLanguage();
+        $rooms[$lang] = array();
 
-		$roomExpire = time() - DURA_CHAT_ROOM_EXPIRE;
-		$activeUser = 0;
+        $roomExpire = time() - DURA_CHAT_ROOM_EXPIRE;
+        $activeUser = 0;
 
-		foreach ( $roomModels as $id => $roomModel )
-		{
-			$room = $roomModel->asArray();
+        foreach ($roomModels as $id => $roomModel) {
+            $room = $roomModel->asArray();
 
-			if ( $room['update'] < $roomExpire )
-			{
-				$roomHandler->delete($id);
-				continue;
-			}
+            if ($room['update'] < $roomExpire) {
+                $roomHandler->delete($id);
+                continue;
+            }
 
-			$room['creater'] = '';
+            $room['creater'] = '';
 
-			foreach ( $room['users'] as $user )
-			{
-				if ( $user['id'] == $room['host'] )
-				{
-					$room['creater'] = $user['name'];
-				}
-			}
+            foreach ($room['users'] as $user) {
+                if ($user['id'] == $room['host']) {
+                    $room['creater'] = $user['name'];
+                }
+            }
 
-			$room['id']  = $id;
-			$room['total'] = count($room['users']);
-			$room['url'] = Dura::url('room');
+            $room['id'] = $id;
+            $room['total'] = count($room['users']);
+            $room['url'] = Dura::url('room');
 
-			$lang = $room['language'];
+            $lang = $room['language'];
 
-			$rooms[$lang][] = $room;
+            $rooms[$lang][] = $room;
 
-			$activeUser += $room['total'];
-		}
+            $activeUser += $room['total'];
+        }
 
-		unset($roomHandler, $roomModels, $roomModel, $room);
+        unset($roomHandler, $roomModels, $roomModel, $room);
 
-		$this->output['rooms'] = $rooms;
-		$this->output['active_user'] = $activeUser;
-	}
+        $this->output['rooms'] = $rooms;
+        $this->output['active_user'] = $activeUser;
+    }
 
-	protected function _profile()
-	{
-		$user =& Dura::user();
-		$icon = $user->getIcon();
-		$icon = Dura_Class_Icon::getIconUrl($icon);
+    protected function _profile()
+    {
+        $user =& Dura::user();
+        $icon = $user->getIcon();
+        $icon = Dura_Class_Icon::getIconUrl($icon);
 
-		$profile = array(
-			'icon' => $icon,
-			'name' => $user->getName(),
-		);
+        $profile = array(
+            'icon' => $icon,
+            'name' => $user->getName(),
+        );
 
-		$this->output['profile'] = $profile;
-	}
+        $this->output['profile'] = $profile;
+    }
 }
-
-?>

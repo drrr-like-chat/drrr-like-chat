@@ -10,4 +10,3 @@ require 'dura.php';
 
 Dura::setup();
 Dura::execute();
-

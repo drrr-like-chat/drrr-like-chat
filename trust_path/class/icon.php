@@ -1,50 +1,33 @@
 <?php
-/**
- * A simple description for this script
- *
- * PHP Version 5.2.0 or Upper version
- *
- * @package    Dura
- * @author     Hidehito NOZAWA aka Suin <http://suin.asia>
- * @copyright  2010 Hidehito NOZAWA
- 
- *
- */
 
 class Dura_Class_Icon
 {
-	public static function &getIcons()
-	{
-		static $icons = null;
+    public static function &getIcons()
+    {
+        static $icons = null;
 
-		if ( $icons === null )
-		{
-			$icons = array();
-			$iconDir = DURA_PATH.'/css';
+        if ($icons === null) {
+            $icons = array();
+            $iconDir = DURA_PATH . '/css';
 
-			if ( $dir = opendir($iconDir) )
-			{
-				while ( ($file = readdir($dir)) !== false )
-				{
-					if ( preg_match('/^icon_(.+)\.png$/', $file, $match) )
-					{
-						list($dummy, $icon) = $match;
-						$icons[$icon] = $file;
-					}
-				} 
+            if ($dir = opendir($iconDir)) {
+                while (($file = readdir($dir)) !== false) {
+                    if (preg_match('/^icon_(.+)\.png$/', $file, $match)) {
+                        list($dummy, $icon) = $match;
+                        $icons[$icon] = $file;
+                    }
+                }
 
-				closedir($dir);
-			}
-		}
+                closedir($dir);
+            }
+        }
 
-		return $icons;
-	}
+        return $icons;
+    }
 
-	public static function getIconUrl($icon)
-	{
-		$url = DURA_URL.'/css/icon_'.$icon.'.png';
-		return $url;
-	}
+    public static function getIconUrl($icon)
+    {
+        $url = DURA_URL . '/css/icon_' . $icon . '.png';
+        return $url;
+    }
 }
-
-?>

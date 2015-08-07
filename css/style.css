@@ -1,52 +1,52 @@
 * {
-	padding: 0;
-	margin: 0;
+    padding: 0;
+    margin: 0;
 }
 
 body {
-	background: #0a0a0a;
-	color: #ffffff;
-	font-size: 16px;
-	font-family: "Meiryo";
+    background: #0a0a0a;
+    color: #ffffff;
+    font-size: 16px;
+    font-family: "Meiryo";
 }
 
-input, textarea{
-	font-family: "Meiryo";
+input, textarea {
+    font-family: "Meiryo";
 }
 
 .clear {
-	clear: both;
+    clear: both;
 }
 
 .right {
-	float: right;
+    float: right;
 }
 
 .hide {
-	display: none;
+    display: none;
 }
 
 .transparent {
-	opacity: 0.8;
+    opacity: 0.8;
 }
 
 div#body {
-	position: absolute;
-	width: 620px;
-	left: 50%;
-	margin-left: -310px;
+    position: absolute;
+    width: 620px;
+    left: 50%;
+    margin-left: -310px;
 }
 
 div.header {
-	background: #efefef;
-	padding: 20px;
-	color: #0a0a0a;
+    background: #efefef;
+    padding: 20px;
+    color: #0a0a0a;
 }
 
-	div.header h2 {
-		text-align: center;
-		font-size: 20px;
-	}
+div.header h2 {
+    text-align: center;
+    font-size: 20px;
+}
 
 .button {
     background: transparent url('bg_button_a.gif') no-repeat scroll top right;
@@ -59,419 +59,419 @@ div.header {
     text-decoration: none;
 }
 
-	.button input {
-		border: 0;
-	    background: transparent url('bg_button_span.gif') no-repeat;
-		width: 120px;
-	    height: 24px;
-		display: block;
-	    line-height: 14px;
-	    padding: 5px 0 5px 18px;
-	}
-
-	.button:active {
-	    background-position: bottom right;
-	    color: #000;
-	    outline: none; /* hide dotted outline in Firefox */
-	}
-
-		.button:active input {
-		    background-position: bottom left;
-		    padding: 6px 0 4px 18px; /* push text down 1px */
-		}
-
-div.message_box {
-	position: fixed;
-	width: 100%;
-	top: 0;
-	left: 0;
-	background: #efefef;
-	padding: 5px 0 0 0;
-	color: #0a0a0a;
-	z-index: 99999;
+.button input {
+    border: 0;
+    background: transparent url('bg_button_span.gif') no-repeat;
+    width: 120px;
+    height: 24px;
+    display: block;
+    line-height: 14px;
+    padding: 5px 0 5px 18px;
 }
 
-	div.message_box h2 {
-		text-align: center;
-		font-size: 13px;
-		float: left;
-	}
+.button:active {
+    background-position: bottom right;
+    color: #000;
+    outline: none; /* hide dotted outline in Firefox */
+}
+
+.button:active input {
+    background-position: bottom left;
+    padding: 6px 0 4px 18px; /* push text down 1px */
+}
+
+div.message_box {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background: #efefef;
+    padding: 5px 0 0 0;
+    color: #0a0a0a;
+    z-index: 99999;
+}
+
+div.message_box h2 {
+    text-align: center;
+    font-size: 13px;
+    float: left;
+}
 
 div.message_box_inner {
-	position: relative;
-	width: 580px;
-	left: 50%;
-	margin-left: -290px;
+    position: relative;
+    width: 580px;
+    left: 50%;
+    margin-left: -290px;
 }
 
 ul.menu {
-	display: block;
-	float: right;
-	height: 15px;
-	list-style: none;
-	line-height: 15px;
+    display: block;
+    float: right;
+    height: 15px;
+    list-style: none;
+    line-height: 15px;
 }
 
-	ul.menu li {
-		display: block;
-		float: left;
-		margin: 0 0 0 10px;
-		cursor: pointer;
-	}
+ul.menu li {
+    display: block;
+    float: left;
+    margin: 0 0 0 10px;
+    cursor: pointer;
+}
 
-	ul.menu li input {
-		display: block;
-		font-size: 11px;
-		height: 15px;
-		line-height: 12px;
-		cursor: pointer;
-		border: 1px gray solid;
-		padding: 0;
-	}
+ul.menu li input {
+    display: block;
+    font-size: 11px;
+    height: 15px;
+    line-height: 12px;
+    cursor: pointer;
+    border: 1px gray solid;
+    padding: 0;
+}
 
-	ul.menu li.setting, ul.menu li.sound, ul.menu li.member, ul.menu li.animation {
-		width: 15px;
-		display: none;
-	}
+ul.menu li.setting, ul.menu li.sound, ul.menu li.member, ul.menu li.animation {
+    width: 15px;
+    display: none;
+}
 
-	ul.menu li.setting {
-		background: transparent url('setting.png') left top no-repeat;
-	}
+ul.menu li.setting {
+    background: transparent url('setting.png') left top no-repeat;
+}
 
-	ul.menu li.sound_on {
-		background: transparent url('sound_on.png') left top no-repeat;
-	}
+ul.menu li.sound_on {
+    background: transparent url('sound_on.png') left top no-repeat;
+}
 
-	ul.menu li.sound_off {
-		background: transparent url('sound_off.png') left top no-repeat;
-	}
+ul.menu li.sound_off {
+    background: transparent url('sound_off.png') left top no-repeat;
+}
 
-	ul.menu li.member_on {
-		background: transparent url('member_on.png') left top no-repeat;
-	}
+ul.menu li.member_on {
+    background: transparent url('member_on.png') left top no-repeat;
+}
 
-	ul.menu li.member_off {
-		background: transparent url('member_off.png') left top no-repeat;
-	}
+ul.menu li.member_off {
+    background: transparent url('member_off.png') left top no-repeat;
+}
 
-	ul.menu li.animation_on {
-		background: transparent url('animation_on.png') left top no-repeat;
-	}
+ul.menu li.animation_on {
+    background: transparent url('animation_on.png') left top no-repeat;
+}
 
-	ul.menu li.animation_off {
-		background: transparent url('animation_off.png') left top no-repeat;
-	}
+ul.menu li.animation_off {
+    background: transparent url('animation_off.png') left top no-repeat;
+}
 
 #setting_pannel {
-	clear: both;
-	padding: 20px 0;
+    clear: both;
+    padding: 20px 0;
 }
 
-	#setting_pannel ul#user_list {
-		list-style: none;
-	}
+#setting_pannel ul#user_list {
+    list-style: none;
+}
 
-		#setting_pannel ul#user_list li {
-			min-height: 20px;
-			width: 80px;
-			padding-top: 60px;
-			text-align: center;
-			display: block;
-			float: left;
-			line-height: 20px;
-			border: 2px solid transparent;
-			margin: 10px;
-		}
+#setting_pannel ul#user_list li {
+    min-height: 20px;
+    width: 80px;
+    padding-top: 60px;
+    text-align: center;
+    display: block;
+    float: left;
+    line-height: 20px;
+    border: 2px solid transparent;
+    margin: 10px;
+}
 
-		#setting_pannel ul#user_list li.select {
-			border: 2px solid #ff6600;
-		}
+#setting_pannel ul#user_list li.select {
+    border: 2px solid #ff6600;
+}
 
 #message {
-	text-align: center;
+    text-align: center;
 }
 
-	#message textarea {
-		clear:both;
-		display:block;
-		width: 470px;
-		height: 3em;
-		font-size: 16px;
-		letter-spacing: 1px;
-		padding: 10px;
-		border: 2px solid #cccccc;
-		margin: 0 0 0 90px;
-		*margin-left: 55px;
-		border: 1px #5b5b5b solid;
-		border-radius: 10px;
-		-moz-border-radius: 10px;
-		-webkit-border-radius: 10px;
-		overflow-y: hidden;
-	}
+#message textarea {
+    clear: both;
+    display: block;
+    width: 470px;
+    height: 3em;
+    font-size: 16px;
+    letter-spacing: 1px;
+    padding: 10px;
+    border: 2px solid #cccccc;
+    margin: 0 0 0 90px;
+    *margin-left: 55px;
+    border: 1px #5b5b5b solid;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    overflow-y: hidden;
+}
 
-	#message div.submit input {
-		display:block;
-		border: 0;
-		margin: 5px 180px;
-		height: 25px;
-		width: 200px;
-		font-size: 12px;
-		font-family: "Meiryo";
-		color: #201e1a;
-		font-weight: bold;
-	    background: transparent url('submit.gif') 0px 0px no-repeat;
-	}
+#message div.submit input {
+    display: block;
+    border: 0;
+    margin: 5px 180px;
+    height: 25px;
+    width: 200px;
+    font-size: 12px;
+    font-family: "Meiryo";
+    color: #201e1a;
+    font-weight: bold;
+    background: transparent url('submit.gif') 0px 0px no-repeat;
+}
 
-	#message div.submit input:active {
-	    background: transparent url('submit.gif') 0px 1px no-repeat;
-	}
+#message div.submit input:active {
+    background: transparent url('submit.gif') 0px 1px no-repeat;
+}
 
 #talks {
-	margin-top: 150px;
-	_margin-top: 15px;
+    margin-top: 150px;
+    _margin-top: 15px;
 }
 
-	#talks div.system {
-		margin: 10px 0 10px 20px;
-		letter-spacing: 3px;
-		clear: left;
-	}
-	
-	#talks dl.talk {
-		clear: both;
-		min-height: 80px;
-		margin-top: 10px;
-	}
-	
-		#talks dl.talk dt {
-			min-height: 20px;
-			width: 90px;
-			padding-top: 58px;
-			padding-bottom: 10px;
-			text-align: center;
-			display: block;
-			line-height: 20px;
-			float: left;
-		}
+#talks div.system {
+    margin: 10px 0 10px 20px;
+    letter-spacing: 3px;
+    clear: left;
+}
 
-		#talks dl.talk dt.select {
-			border: 2px solid #ff6600;
-		}
+#talks dl.talk {
+    clear: both;
+    min-height: 80px;
+    margin-top: 10px;
+}
 
-		#talks dl.talk dd {
-			display: inline-block;
-			max-width: 510px;
-		}
+#talks dl.talk dt {
+    min-height: 20px;
+    width: 90px;
+    padding-top: 58px;
+    padding-bottom: 10px;
+    text-align: center;
+    display: block;
+    line-height: 20px;
+    float: left;
+}
 
-			#talks dl.talk dd div.bubble p.body {
-				float: left;
-				clear: left;
-				padding: 15px 20px;
-				border-radius: 13px;
-				border: 4px #fff solid;
-				-moz-border-radius: 13px;
-				-webkit-border-radius: 13px;
-				background: #000;
-				font: 1em "Meiryo", sans-serif;
-				letter-spacing: 3px;
-				color: white;
-				-position: relative;
-			}
-			
-			#talks dl.setton dt {
-				background: transparent url('icon_setton.png') no-repeat center top;
-			}
-			
-			#talks dl.setton dd div.bubble p.body {
-				background: transparent url('gray.png') repeat-x left center;
-			}
-			
-			#talks dl.tanaka dt {
-				background: transparent url('icon_tanaka.png') no-repeat center top;
-			}
-			
-			#talks dl.tanaka dd div.bubble p.body {
-				background: transparent url('blue.png') repeat-x left center;
-			}
-			
-			#talks dl.kanra dt {
-				background: transparent url('icon_kanra.png') no-repeat center top;
-			}
-			
-			#talks dl.kanra dd div.bubble p.body {
-				background: transparent url('orange.png') repeat-x left center;
-			}
-			
-			#talks dl.zaika dt {
-				background: transparent url('icon_zaika.png') no-repeat center top;
-			}
-			
-			#talks dl.zawa dd div.bubble p.body {
-				background: transparent url('green.png') repeat-x left center;
-			}
-			
-			#talks dl.zawa dt {
-				background: transparent url('icon_zawa.png') no-repeat center top;
-			}
-			
-			#talks dl.zaika dd div.bubble p.body {
-				background: transparent url('red.png') repeat-x left center;
-			}
-			
-			#talks dl.gg dt {
-				background: transparent url('icon_gg.png') no-repeat center top;
-			}
-			
-			#talks dl.gg dd div.bubble p.body {
-				background: transparent url('pink.png') repeat-x left center;
-			}
-			
-			#talks dl.admin dt {
-				background: transparent url('icon_admin.png') no-repeat center top;
-			}
-			
-			#talks dl.admin dd div.bubble p.body {
-				background: transparent url('orange.png') repeat-x left center;
-			}
+#talks dl.talk dt.select {
+    border: 2px solid #ff6600;
+}
+
+#talks dl.talk dd {
+    display: inline-block;
+    max-width: 510px;
+}
+
+#talks dl.talk dd div.bubble p.body {
+    float: left;
+    clear: left;
+    padding: 15px 20px;
+    border-radius: 13px;
+    border: 4px #fff solid;
+    -moz-border-radius: 13px;
+    -webkit-border-radius: 13px;
+    background: #000;
+    font: 1em "Meiryo", sans-serif;
+    letter-spacing: 3px;
+    color: white;
+    -position: relative;
+}
+
+#talks dl.setton dt {
+    background: transparent url('icon_setton.png') no-repeat center top;
+}
+
+#talks dl.setton dd div.bubble p.body {
+    background: transparent url('gray.png') repeat-x left center;
+}
+
+#talks dl.tanaka dt {
+    background: transparent url('icon_tanaka.png') no-repeat center top;
+}
+
+#talks dl.tanaka dd div.bubble p.body {
+    background: transparent url('blue.png') repeat-x left center;
+}
+
+#talks dl.kanra dt {
+    background: transparent url('icon_kanra.png') no-repeat center top;
+}
+
+#talks dl.kanra dd div.bubble p.body {
+    background: transparent url('orange.png') repeat-x left center;
+}
+
+#talks dl.zaika dt {
+    background: transparent url('icon_zaika.png') no-repeat center top;
+}
+
+#talks dl.zawa dd div.bubble p.body {
+    background: transparent url('green.png') repeat-x left center;
+}
+
+#talks dl.zawa dt {
+    background: transparent url('icon_zawa.png') no-repeat center top;
+}
+
+#talks dl.zaika dd div.bubble p.body {
+    background: transparent url('red.png') repeat-x left center;
+}
+
+#talks dl.gg dt {
+    background: transparent url('icon_gg.png') no-repeat center top;
+}
+
+#talks dl.gg dd div.bubble p.body {
+    background: transparent url('pink.png') repeat-x left center;
+}
+
+#talks dl.admin dt {
+    background: transparent url('icon_admin.png') no-repeat center top;
+}
+
+#talks dl.admin dd div.bubble p.body {
+    background: transparent url('orange.png') repeat-x left center;
+}
 
 #login {
-	min-height: 100px;
+    min-height: 100px;
 }
 
 #login .language {
-	text-align: right;
+    text-align: right;
 }
 
 #login .field {
-	text-align: center;
-	width: 280px;
+    text-align: center;
+    width: 280px;
 }
 
 #login .field .textbox {
-	width: 240px;
-	font-size: 20px;
-	letter-spacing: 1px;
-	text-align: center;
-	padding: 5px;
-	border: 1px solid #cccccc;
-	margin: 0 0 20px 0;
+    width: 240px;
+    font-size: 20px;
+    letter-spacing: 1px;
+    text-align: center;
+    padding: 5px;
+    border: 1px solid #cccccc;
+    margin: 0 0 20px 0;
 }
 
 #login .footer {
-	text-align: center;
-	margin: 40px 0 20px 0;
-	clear: both;
-	color: #8a8a8a;
-	font-size: 13px;
+    text-align: center;
+    margin: 40px 0 20px 0;
+    clear: both;
+    color: #8a8a8a;
+    font-size: 13px;
 }
 
 #login .copyright {
-	text-align: center;
-	margin: 40px 0 20px 0;
-	clear: both;
-	color: #8a8a8a;
-	font-size: 10px;
+    text-align: center;
+    margin: 40px 0 20px 0;
+    clear: both;
+    color: #8a8a8a;
+    font-size: 10px;
 }
 
 .notice {
-	text-align: left;
-	font-size: 11px;
+    text-align: left;
+    font-size: 11px;
 }
 
 ul.icons {
-	list-style-type: none;
-	float: right;
-	width: 50%;
+    list-style-type: none;
+    float: right;
+    width: 50%;
 }
 
-	ul.icons li {
-		display: block;
-		float: left;
-		width: 60px;
-		margin: 0 5px;
-		text-align: center;
-	}
+ul.icons li {
+    display: block;
+    float: left;
+    width: 60px;
+    margin: 0 5px;
+    text-align: center;
+}
 
 #create_room {
-	float: right;
+    float: right;
 }
 
 ul#profile {
-	float: left;
-	width: 612px;
-	list-style-type: none;
-	background: #0a0a0a;
-	margin: 20px 0;
-	border-radius: 13px;
-	border: 4px gray solid;
-	-moz-border-radius: 13px;
-	-webkit-border-radius: 13px;
+    float: left;
+    width: 612px;
+    list-style-type: none;
+    background: #0a0a0a;
+    margin: 20px 0;
+    border-radius: 13px;
+    border: 4px gray solid;
+    -moz-border-radius: 13px;
+    -webkit-border-radius: 13px;
 }
 
-	ul#profile li {
-		display: block;
-		float: left;
-		vertical-align: middle;
-		height: 60px;
-		margin: 15px 0;
-	}
+ul#profile li {
+    display: block;
+    float: left;
+    vertical-align: middle;
+    height: 60px;
+    margin: 15px 0;
+}
 
-	ul#profile li.icon {
-		width: 60px;
-		margin-left: 15px;
-	}
+ul#profile li.icon {
+    width: 60px;
+    margin-left: 15px;
+}
 
-	ul#profile li.name {
-		min-width: 50px;
-		color: #fff;
-		font-size: 20px;
-		text-align: left;
-		line-height: 60px;
-		padding: 0 15px
-	}
+ul#profile li.name {
+    min-width: 50px;
+    color: #fff;
+    font-size: 20px;
+    text-align: left;
+    line-height: 60px;
+    padding: 0 15px
+}
 
-	ul#profile li.logout {
-		float: right;
-		line-height: 60px;
-		margin-right: 15px;
-	}
+ul#profile li.logout {
+    float: right;
+    line-height: 60px;
+    margin-right: 15px;
+}
 
 ul.rooms {
-	list-style-type: none;
-	clear: both;
+    list-style-type: none;
+    clear: both;
 }
 
-	ul.rooms li {
-		list-style-type: none;
-		display: block;
-		text-align: center;
-		float: left;
-		padding: 8px 0;
-	}
+ul.rooms li {
+    list-style-type: none;
+    display: block;
+    text-align: center;
+    float: left;
+    padding: 8px 0;
+}
 
-	ul.rooms li.name {
-		width: 180px;
-		text-align: left;
-	}
+ul.rooms li.name {
+    width: 180px;
+    text-align: left;
+}
 
-	ul.rooms li.creater {
-		width: 180px;
-	}
+ul.rooms li.creater {
+    width: 180px;
+}
 
-	ul.rooms li.member {
-		width: 70px;
-	}
+ul.rooms li.member {
+    width: 70px;
+}
 
-	ul.rooms li.login {
-		text-align: left;
-	}
+ul.rooms li.login {
+    text-align: left;
+}
 
 ul#members {
-	list-style-type: none;
-	text-align: left;
-	clear: both;
+    list-style-type: none;
+    text-align: left;
+    clear: both;
 }
 
-	ul#members li {
-		display: inline;
-	}
+ul#members li {
+    display: inline;
+}

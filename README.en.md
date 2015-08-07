@@ -1,5 +1,7 @@
 # drrr-like-chat
 
+![](https://raw.githubusercontent.com/drrr-like-chat/drrr-like-chat/master/image.png)
+
 ## INTRODUCTION
 
 This is Ajax-based Durarara-like-chat.

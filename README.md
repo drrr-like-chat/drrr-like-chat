@@ -1,5 +1,9 @@
 # drrr-like-chat
 
+_[RAEADME in English here](https://github.com/drrr-like-chat/drrr-like-chat/blob/master/README.en.md)_
+
+![](https://raw.githubusercontent.com/drrr-like-chat/drrr-like-chat/master/image.png)
+
 ## 概要
 
 アニメデュラララに出てくるチャットをモデルに作成したAjaxベースのチャットアプリケーションです。

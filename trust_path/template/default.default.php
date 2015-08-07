@@ -43,6 +43,6 @@
 <?php endif ?>
 <div class="copyright">
 <a href="<?php e(Dura::url('admin')) ?>"><?php e("Admin") ?></a> |
-Durarara-like-chat Copyright (c) 2010 <a href="http://suin.asia/">Suin</a> | <a href="http://code.google.com/p/drrr-like-chat/">get this chat?</a></div>
+Durarara-like-chat Copyright (c) 2010 <a href="http://suin.asia/">Suin</a> | <a href="https://github.com/drrr-like-chat/drrr-like-chat">get this chat?</a></div>
 
 </div>

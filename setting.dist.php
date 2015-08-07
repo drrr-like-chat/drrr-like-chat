@@ -9,7 +9,7 @@ define('DURA_ADMIN_PASS', 'admin');
 /**
  * URL & Path
  */
-define('DURA_URL', 'http://www.example.com'); // DO NOT ADD SLASH TO END.
+define('DURA_URL', 'http://localhost:8000'); // DO NOT ADD SLASH TO END.
 define('DURA_PATH', dirname(__FILE__));
 
 /**

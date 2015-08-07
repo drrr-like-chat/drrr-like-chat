@@ -7,7 +7,7 @@
  * @package    Paylog
  * @author     Hidehito NOZAWA aka Suin <http://suin.asia>
  * @copyright  2010 Hidehito NOZAWA
- * @license    http://www.gnu.org/licenses/gpl-3.0.html GNU GPL v3
+ 
  *
  */
 

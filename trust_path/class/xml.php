@@ -2,7 +2,7 @@
 
 class Dura_Class_Xml extends SimpleXMLElement
 {
-    public function asXML()
+    public function asXML($filename = null)
     {
         $string = parent::asXML();
         $this->_creanupXML($string);
